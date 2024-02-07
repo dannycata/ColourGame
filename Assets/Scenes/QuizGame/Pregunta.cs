@@ -5,5 +5,5 @@ using UnityEngine;
 public class Pregunta : MonoBehaviour
 {
     public string text = null;
-	public List<Opcion> opcion = null;
+	public List<Opcion> opciones = null;
 }

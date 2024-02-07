@@ -1,18 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class QuizUI : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField] private Text r_question = null;
+	[SerializeField] private List<OpcionBoton> r_buttonList = null;
+	
+	public void Construtc(Pregunta p, Action<OpcionBoton> callback)
+	{
+		r_question.text = p.text;
+		
+		for (int n=0; n<r_buttonList.Count ; n++)
+		{
+			r_buttonList[n].Construtc(p.opciones[n], callback);
+		}
+	}
 }

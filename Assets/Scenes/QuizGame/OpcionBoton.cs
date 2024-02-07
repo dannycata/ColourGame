@@ -29,6 +29,7 @@ public class OpcionBoton : MonoBehaviour
 	{
 		r_text.text = opcion.text;
 		
+		r_button.onClick.RemoveAllListeners();
 		r_button.enabled = true;
 		r_image.color = r_color;
 		
