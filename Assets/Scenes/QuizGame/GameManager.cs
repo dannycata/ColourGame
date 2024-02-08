@@ -15,7 +15,8 @@ public class GameManager : MonoBehaviour
     private QuizDB r_quizDB = null;
 	private QuizUI r_quizUI = null;
 	private AudioSource r_audioSource = null;
-	public string nombreDeLaNuevaEscena = "MenuJuegos";
+	public int correctAnswers = 0;
+	public int incorrectAnswers = 0;
 	
 	private void Start()
 	{
@@ -44,18 +45,22 @@ public class GameManager : MonoBehaviour
 		r_audioSource.clip = optionButton.Opcion.correct ? r_correctSound : r_incorrectSound;
 		optionButton.SetColor(optionButton.Opcion.correct ? r_correctColor : r_incorrectColor);
 		
+		if (optionButton.Opcion.correct)
+		{
+			correctAnswers++;
+			PlayerPrefs.SetInt("CorrectAnswersQUIZ", correctAnswers);
+		}
+		else
+		{
+			incorrectAnswers++;
+			PlayerPrefs.SetInt("IncorrectAnswersQUIZ", incorrectAnswers);
+		}
+        PlayerPrefs.Save();
+		
 		r_audioSource.Play();
 		
 		yield return new WaitForSeconds(r_waitTime);
 		
-		if(!optionButton.Opcion.correct)
-			GameOver();
-		else
-			NextQuestion();
-	}
-	
-	private void GameOver()
-	{
-		SceneManager.LoadScene(nombreDeLaNuevaEscena);
+		NextQuestion();
 	}
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class CambiarEscena : MonoBehaviour
+public class EntrarJuego : MonoBehaviour
 {
     private Button boton;
     public string nombreDeLaNuevaEscena = "QuizGame";
@@ -21,10 +21,11 @@ public class CambiarEscena : MonoBehaviour
 
     private void OnClickCambiarEscena()
     {
+		PlayerPrefs.DeleteKey("CorrectAnswersQUIZ");
+		PlayerPrefs.DeleteKey("IncorrectAnswersQUIZ");
+		PlayerPrefs.Save();
         SceneManager.LoadScene(nombreDeLaNuevaEscena);
     }
 }
-
-
 
 

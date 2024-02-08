@@ -2,6 +2,7 @@ using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class QuizDB : MonoBehaviour
 {
@@ -17,7 +18,8 @@ public class QuizDB : MonoBehaviour
 	public Pregunta GetRandom(bool remove = true)
 	{
 		if(r_questionlist.Count == 0)
-			RestoreBackup();
+			SceneManager.LoadScene("FinJuego");
+			//RestoreBackup();
 		
 		int index = Random.Range(0, r_questionlist.Count);
 		
