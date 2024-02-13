@@ -13,6 +13,7 @@ public class OpcionBoton : MonoBehaviour
 	private Image r_image = null;
 	private Text r_text = null;
 	private Color r_color = Color.black;
+	private Timer r_timer = null;
 
 	public Opcion Opcion {get; set;}
 
@@ -20,6 +21,7 @@ public class OpcionBoton : MonoBehaviour
 	{
 		r_button = GetComponent<Button>();
 		r_image = GetComponent<Image>();
+		r_timer = GameObject.FindObjectOfType<Timer>();
 		r_text = transform.GetChild(0).GetComponent<Text>();
 		
 		r_color = r_image.color;
@@ -38,6 +40,7 @@ public class OpcionBoton : MonoBehaviour
 		r_button.onClick.AddListener(delegate
 		{
 			callback(this);
+			r_timer.Stop();
 		});
 	}
 	

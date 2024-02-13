@@ -18,8 +18,11 @@ public class QuizDB : MonoBehaviour
 	public Pregunta GetRandom(bool remove = true)
 	{
 		if(r_questionlist.Count == 0)
+		{
 			SceneManager.LoadScene("FinJuego");
-			//RestoreBackup();
+			return null;
+		}
+			
 		
 		int index = Random.Range(0, r_questionlist.Count);
 		
@@ -30,10 +33,5 @@ public class QuizDB : MonoBehaviour
 		r_questionlist.RemoveAt(index);
 		
 		return p;
-	}
-	
-	private void RestoreBackup()
-	{
-		r_questionlist = r_backup.ToList();
 	}
 }
