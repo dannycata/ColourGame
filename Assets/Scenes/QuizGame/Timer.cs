@@ -10,8 +10,9 @@ public class Timer : MonoBehaviour
 	float timeLeft;
 	GameManager gameManager;
 	
-    public void Empieza()
+    public void Starts()
     {
+		maxTime = PlayerPrefs.GetFloat("VariableTiempo", 5f);
 		Camera mainCamera = Camera.main;
 		gameManager = mainCamera.GetComponent<GameManager>();
 		timerBar = GetComponent<Image> ();
@@ -35,8 +36,14 @@ public class Timer : MonoBehaviour
 
     public void ResetTimer()
     {
+		enabled=true;
         timeLeft = maxTime;
         timerBar.fillAmount = 1f;
         Time.timeScale = 1;
+    }
+	
+	public void Stop()
+    {
+        enabled=false;
     }
 }

@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
 	private int correctAnswers = 0;
 	private int incorrectAnswers = 0;
 	private Pregunta question = null;
-	public Timer r_timer = null;
+	private Timer r_timer = null;
 	
 	private void Start()
 	{
@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
 		r_timer = GameObject.FindObjectOfType<Timer>();
 		r_audioSource = GetComponent<AudioSource>();
 		
-		r_timer.Empieza();
+		r_timer.Starts();
 	}
 	
 	public bool NextQuestion()
