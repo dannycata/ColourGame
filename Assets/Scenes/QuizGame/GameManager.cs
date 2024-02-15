@@ -15,7 +15,9 @@ public class GameManager : MonoBehaviour
 	[SerializeField] private Sprite i_correct = null;
 	[SerializeField] private Sprite i_incorrect = null;
 	
-    private QuizDB r_quizDB = null;
+    //private QuizDB r_quizDB = null;
+	private QuizDB quizDBComponent = null;
+	private GameObject quizDBFObject = null;
 	private QuizUI r_quizUI = null;
 	private AudioSource r_audioSource = null;
 	public GameObject panel = null;
@@ -27,7 +29,9 @@ public class GameManager : MonoBehaviour
 	
 	private void Start()
 	{
-		r_quizDB = GameObject.FindObjectOfType<QuizDB>();
+		//r_quizDB = GameObject.FindObjectOfType<QuizDBF>();
+		quizDBFObject = GameObject.Find(PlayerPrefs.GetString("Nivel"));
+		quizDBComponent = quizDBFObject.GetComponent<QuizDB>();
 		r_quizUI = GameObject.FindObjectOfType<QuizUI>();
 		r_timer = GameObject.FindObjectOfType<Timer>();
 		r_audioSource = GetComponent<AudioSource>();
@@ -37,7 +41,8 @@ public class GameManager : MonoBehaviour
 	
 	public bool NextQuestion()
 	{
-		question = r_quizDB.GetRandom();
+		//r_quizDB.GetRandom();
+		question = quizDBComponent.GetRandom();
 		if (question != null)
 		{
 			r_timer.ResetTimer();

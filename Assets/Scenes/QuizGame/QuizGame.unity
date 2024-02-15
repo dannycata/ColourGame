@@ -902,7 +902,7 @@ GameObject:
   - component: {fileID: 417014682}
   - component: {fileID: 417014681}
   m_Layer: 0
-  m_Name: QuizDB
+  m_Name: Nivel Facil
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1091,6 +1091,52 @@ MonoBehaviour:
   - {fileID: 1971777522}
   - {fileID: 1624759807}
   - {fileID: 1800727651}
+--- !u!1 &510630453
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 510630455}
+  - component: {fileID: 510630454}
+  m_Layer: 0
+  m_Name: Nivel Normal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &510630454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 510630453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37d01c43c6d93174ebdee3678b6f5f31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  r_questionlist:
+  - {fileID: 2183377132750143293, guid: c24d424e7f6c1744083aa2b6ed9e7a43, type: 3}
+--- !u!4 &510630455
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 510630453}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 440.23355, y: 196.98428, z: 2.4512186}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &554493165
 GameObject:
   m_ObjectHideFlags: 0
@@ -1263,6 +1309,52 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0468b921c9adfb42a0650cc8b917300, type: 3}
+--- !u!1 &1142794438
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1142794440}
+  - component: {fileID: 1142794439}
+  m_Layer: 0
+  m_Name: Nivel Dificil
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1142794439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1142794438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37d01c43c6d93174ebdee3678b6f5f31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  r_questionlist:
+  - {fileID: 2183377132750143293, guid: 8128b6a87c0b9764bb0d83822b1cb8f2, type: 3}
+--- !u!4 &1142794440
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1142794438}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 440.23355, y: 196.98428, z: 2.4512186}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1442480792
 GameObject:
   m_ObjectHideFlags: 0
@@ -1865,3 +1957,5 @@ SceneRoots:
   - {fileID: 300423697}
   - {fileID: 123176006}
   - {fileID: 417014682}
+  - {fileID: 510630455}
+  - {fileID: 1142794440}

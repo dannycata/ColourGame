@@ -22,6 +22,7 @@ public class CambiarEscena : MonoBehaviour
 		
 		if (nombreEscenaActual == "MenuPrincipal")
 		{
+			PlayerPrefs.SetString("Nivel","Nivel Facil");
 			PlayerPrefs.DeleteKey("VariableTiempo");
 		}
     }
