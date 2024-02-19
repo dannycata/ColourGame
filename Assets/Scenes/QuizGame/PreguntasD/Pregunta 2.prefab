@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4559368014104726497}
   - component: {fileID: 2183377132750143293}
   m_Layer: 0
-  m_Name: Pregunta
+  m_Name: Pregunta 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,23 +45,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: "\xBFQue color es el siguiente?"
-  color: {r: 0.9245283, g: 0.7427721, b: 0.6401922, a: 1}
+  color: {r: 0.97735846, g: 0.60973155, b: 0.55137765, a: 1}
   opciones:
   - text: A
-    correct: 1
-    color: {r: 0.92549026, g: 0.7411765, b: 0.6392157, a: 1}
+    correct: 0
+    color: {r: 0.8867924, g: 0.45718455, b: 0.3932004, a: 1}
   - text: B
     correct: 0
-    color: {r: 0.9547169, g: 0.62186146, b: 0.43772864, a: 1}
+    color: {r: 0.90943396, g: 0.68989235, b: 0.6571947, a: 1}
   - text: C
     correct: 0
-    color: {r: 0.65882355, g: 0.5176471, b: 0.4392157, a: 1}
+    color: {r: 0.9764706, g: 0.74530745, b: 0.5529412, a: 1}
   - text: D
     correct: 0
-    color: {r: 0.96981126, g: 0.733434, b: 0.44464925, a: 1}
+    color: {r: 0.9622642, g: 0.79949963, b: 0.7752581, a: 1}
   - text: E
-    correct: 0
-    color: {r: 0.83396226, g: 0.5306261, b: 0.36348164, a: 1}
+    correct: 1
+    color: {r: 0.97647065, g: 0.60784316, b: 0.5529412, a: 1}
   - text: F
     correct: 0
-    color: {r: 0.7132075, g: 0.44722477, b: 0.30008537, a: 1}
+    color: {r: 0.78113204, g: 0.43349826, b: 0.38172302, a: 1}
