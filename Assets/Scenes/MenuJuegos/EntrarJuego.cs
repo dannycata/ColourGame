@@ -12,7 +12,6 @@ public class EntrarJuego : MonoBehaviour
     private void Start()
     {
         boton = GetComponent<Button>();
-
         if (boton != null)
         {
             boton.onClick.AddListener(OnClickCambiarEscena);

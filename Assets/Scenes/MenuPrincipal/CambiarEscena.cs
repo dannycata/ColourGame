@@ -19,16 +19,19 @@ public class CambiarEscena : MonoBehaviour
 			nombreEscenaActual=SceneManager.GetActiveScene().name;
             boton.onClick.AddListener(OnClickCambiarEscena);
         }
-		
-		if (nombreEscenaActual == "MenuPrincipal")
-		{
-			PlayerPrefs.DeleteKey("VariableTiempo");
-		}
     }
 
     private void OnClickCambiarEscena()
     {
         SceneManager.LoadScene(nombreDeLaNuevaEscena);
+    }
+	
+	void OnApplicationQuit()
+    {
+        PlayerPrefs.DeleteKey("Animacion");
+		PlayerPrefs.DeleteKey("Nivel");
+		PlayerPrefs.DeleteKey("VariableTiempo");
+		PlayerPrefs.Save();
     }
 }
 
