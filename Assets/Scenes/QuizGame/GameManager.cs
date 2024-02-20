@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
 	private void Start()
 	{
 		//r_quizDB = GameObject.FindObjectOfType<QuizDBF>();
-		quizDBFObject = GameObject.Find(PlayerPrefs.GetString("Nivel"));
+		quizDBFObject = GameObject.Find(PlayerPrefs.GetString("Nivel", "Nivel Facil"));
 		quizDBComponent = quizDBFObject.GetComponent<QuizDB>();
 		r_quizUI = GameObject.FindObjectOfType<QuizUI>();
 		r_timer = GameObject.FindObjectOfType<Timer>();

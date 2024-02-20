@@ -32,12 +32,12 @@ public class BotonesNivel : MonoBehaviour
 
     private void ActualizarColores()
     {
-        string opcion = PlayerPrefs.GetString("Nivel");
+        string opcion = PlayerPrefs.GetString("Nivel","Nivel Facil");
 
         // Si es el botón seleccionado, cambia su color
         boton.image.color = texto == opcion ? colorSeleccionado : colorNormal;
 
-        // Obtén todos los botones en el mismo objeto contenedor
+        // Obtenemos todos los botones en el mismo objeto contenedor
         BotonesNivel[] todosLosBotones = transform.parent.GetComponentsInChildren<BotonesNivel>(true);
 
         foreach (var otroBoton in todosLosBotones)
