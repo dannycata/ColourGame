@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviour
 	[SerializeField] private Sprite i_correct = null;
 	[SerializeField] private Sprite i_incorrect = null;
 	
-    //private QuizDB r_quizDB = null;
 	private QuizDB quizDBComponent = null;
 	private GameObject quizDBFObject = null;
 	private QuizUI r_quizUI = null;
@@ -26,10 +25,11 @@ public class GameManager : MonoBehaviour
 	private int incorrectAnswers = 0;
 	private Pregunta question = null;
 	private Timer r_timer = null;
+	private int n_question = 0;
 	
 	private void Start()
 	{
-		//r_quizDB = GameObject.FindObjectOfType<QuizDBF>();
+		n_question = PlayerPrefs.GetInt("NPreguntas", 5);
 		quizDBFObject = GameObject.Find(PlayerPrefs.GetString("Nivel", "Nivel Facil"));
 		quizDBComponent = quizDBFObject.GetComponent<QuizDB>();
 		r_quizUI = GameObject.FindObjectOfType<QuizUI>();
@@ -41,16 +41,18 @@ public class GameManager : MonoBehaviour
 	
 	public bool NextQuestion()
 	{
-		//r_quizDB.GetRandom();
 		question = quizDBComponent.GetRandom();
-		if (question != null)
+		if (question != null && n_question != 0)
 		{
 			r_timer.ResetTimer();
 			r_quizUI.Construtc(question, GiveAnswer);
 			panel.SetActive(false);
+			n_question--;
 			return true;
+		} else{
+			SceneManager.LoadScene("FinJuego");
+			return false;
 		}
-		return false;
 	}
 	
 	private void GiveAnswer(OpcionBoton optionButton)

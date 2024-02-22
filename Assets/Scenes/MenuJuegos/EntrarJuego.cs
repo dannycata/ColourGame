@@ -6,24 +6,36 @@ using UnityEngine.SceneManagement;
 
 public class EntrarJuego : MonoBehaviour
 {
+	[SerializeField] private AudioClip sound = null;
     private Button boton;
     public string nombreDeLaNuevaEscena = "QuizGame";
+	
+	private AudioSource audioSource = null;
 
     private void Start()
     {
         boton = GetComponent<Button>();
+		Camera mainCamera = Camera.main;
+		audioSource = mainCamera.GetComponent<AudioSource>();
         if (boton != null)
         {
-            boton.onClick.AddListener(OnClickCambiarEscena);
+            boton.onClick.AddListener(OnClickPlay);
         }
     }
-
-    private void OnClickCambiarEscena()
+	
+	IEnumerator CambiarEscena(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SceneManager.LoadScene(nombreDeLaNuevaEscena);
+    }
+	
+    private void OnClickPlay()
     {
 		PlayerPrefs.DeleteKey("CorrectAnswersQUIZ");
 		PlayerPrefs.DeleteKey("IncorrectAnswersQUIZ");
 		PlayerPrefs.Save();
-        SceneManager.LoadScene(nombreDeLaNuevaEscena);
+		audioSource.PlayOneShot(sound);
+		StartCoroutine(CambiarEscena(0.1f));
     }
 }
 

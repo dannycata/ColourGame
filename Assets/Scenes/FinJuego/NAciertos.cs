@@ -11,7 +11,8 @@ public class NAciertos : MonoBehaviour
     {
         int correctAnswers = PlayerPrefs.GetInt("CorrectAnswersQUIZ", 0);
 		int incorrectAnswers = PlayerPrefs.GetInt("IncorrectAnswersQUIZ", 0);
+		int n_question = PlayerPrefs.GetInt("NPreguntas", 5);
 
-        correctAnswersText.text = "Numero de aciertos: " + correctAnswers + "   Numero de fallos: " + incorrectAnswers;
+        correctAnswersText.text = "Numero de aciertos: " + correctAnswers + "   Numero de fallos: " + incorrectAnswers + "   Numero de preguntas: " + n_question;
     }
 }

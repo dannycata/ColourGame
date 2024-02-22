@@ -19,7 +19,7 @@ public class QuizDB : MonoBehaviour
 	{
 		if(r_questionlist.Count == 0)
 		{
-			SceneManager.LoadScene("FinJuego");
+			//SceneManager.LoadScene("FinJuego");
 			return null;
 		}
 			
