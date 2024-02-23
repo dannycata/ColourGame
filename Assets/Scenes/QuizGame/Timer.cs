@@ -2,13 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class Timer : MonoBehaviour
 {
-	Image timerBar;
+	private Image timerBar;
 	public float maxTime = 5f;
-	float timeLeft;
+	public float timeLeft;
 	GameManager gameManager;
+	[SerializeField] private List<OpcionBoton> r_buttonList = null;
+	private Button boton;
+	private bool respuestaEncontrada = false;
+	private bool visible = false;
 	
     public void Starts()
     {
@@ -27,10 +33,8 @@ public class Timer : MonoBehaviour
 			timeLeft -= Time.deltaTime;
 			timerBar.fillAmount = timeLeft / maxTime;
 		} else {
-			Time.timeScale = 0;
-			if (gameManager.NextQuestion()){
-				ResetTimer();
-			}
+			//Time.timeScale = 0;
+			RespuestaIncorrecta();
         }
     }
 
@@ -40,10 +44,24 @@ public class Timer : MonoBehaviour
         timeLeft = maxTime;
         timerBar.fillAmount = 1f;
         Time.timeScale = 1;
+		respuestaEncontrada = false;
     }
 	
 	public void Stop()
     {
         enabled=false;
     }
+	
+	public void RespuestaIncorrecta()
+	{
+		for (int n=0; n<r_buttonList.Count ; n++)
+		{
+			if (!respuestaEncontrada && gameManager.question.opciones[n].correct == false)
+			{
+				Button boton = r_buttonList[n].GetComponent<Button>();
+				boton.onClick.Invoke();
+				respuestaEncontrada = true;
+			}
+		}
+	}
 }

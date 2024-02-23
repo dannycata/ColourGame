@@ -14,22 +14,23 @@ public class GameManager : MonoBehaviour
 	[SerializeField] private float r_waitTime = 0.0f;
 	[SerializeField] private Sprite i_correct = null;
 	[SerializeField] private Sprite i_incorrect = null;
+	[SerializeField] private GameObject panel = null;
 	
-    //private QuizDB r_quizDB = null;
 	private QuizDB quizDBComponent = null;
 	private GameObject quizDBFObject = null;
 	private QuizUI r_quizUI = null;
 	private AudioSource r_audioSource = null;
-	public GameObject panel = null;
 	public Image imagenPanel = null;
 	private int correctAnswers = 0;
 	private int incorrectAnswers = 0;
-	private Pregunta question = null;
+	public Pregunta question = null;
 	private Timer r_timer = null;
+	public int n_question = 0;
+	
 	
 	private void Start()
 	{
-		//r_quizDB = GameObject.FindObjectOfType<QuizDBF>();
+		n_question = PlayerPrefs.GetInt("NPreguntas", 5);
 		quizDBFObject = GameObject.Find(PlayerPrefs.GetString("Nivel", "Nivel Facil"));
 		quizDBComponent = quizDBFObject.GetComponent<QuizDB>();
 		r_quizUI = GameObject.FindObjectOfType<QuizUI>();
@@ -39,36 +40,32 @@ public class GameManager : MonoBehaviour
 		r_timer.Starts();
 	}
 	
-	public bool NextQuestion()
+	public void NextQuestion()
 	{
-		//r_quizDB.GetRandom();
 		question = quizDBComponent.GetRandom();
-		if (question != null)
+		if (question != null && n_question != 0)
 		{
 			r_timer.ResetTimer();
 			r_quizUI.Construtc(question, GiveAnswer);
 			panel.SetActive(false);
-			return true;
+			n_question--;
+		} else{
+			r_timer.Stop();
+			SceneManager.LoadScene("FinJuego");
 		}
-		return false;
 	}
 	
-	private void GiveAnswer(OpcionBoton optionButton)
+	public void GiveAnswer(OpcionBoton optionButton)
 	{
-		StartCoroutine(GiveAnswerRoutine(optionButton));
-	}
-	
-	private IEnumerator GiveAnswerRoutine(OpcionBoton optionButton)
-	{
-		if(r_audioSource.isPlaying)
+		if (r_audioSource.isPlaying)
+		{
 			r_audioSource.Stop();
-		
+		}
 		r_audioSource.clip = optionButton.Opcion.correct ? r_correctSound : r_incorrectSound;
 		//optionButton.SetColor(optionButton.Opcion.correct ? r_correctColor : r_incorrectColor);
 		imagenPanel.sprite = optionButton.Opcion.correct ? i_correct : i_incorrect;
 		panel.SetActive(true);
-		
-		
+
 		if (optionButton.Opcion.correct)
 		{
 			correctAnswers++;
@@ -79,12 +76,9 @@ public class GameManager : MonoBehaviour
 			incorrectAnswers++;
 			PlayerPrefs.SetInt("IncorrectAnswersQUIZ", incorrectAnswers);
 		}
-        PlayerPrefs.Save();
-		
+		PlayerPrefs.Save();
+
 		r_audioSource.Play();
-		
-		yield return new WaitForSeconds(r_waitTime);
-		
-		NextQuestion();
+		Invoke("NextQuestion", r_waitTime);
 	}
 }

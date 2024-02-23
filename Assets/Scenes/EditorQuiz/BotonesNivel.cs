@@ -5,16 +5,21 @@ using UnityEngine.UI;
 
 public class BotonesNivel : MonoBehaviour
 {
-    public string colorHexadecimal = "#7FE86E";
+	[SerializeField] private AudioClip sound = null;
+    private string colorHexadecimal = "#7FE86E";
     private Color colorSeleccionado;
     private Color colorNormal = Color.white;
     private Button boton;
     private string texto;
+	
+	private AudioSource audioSource = null;
 
     private void Start()
     {
         ColorUtility.TryParseHtmlString(colorHexadecimal, out colorSeleccionado);
-
+		
+		Camera mainCamera = Camera.main;
+		audioSource = mainCamera.GetComponent<AudioSource>();
         boton = GetComponent<Button>();
         Text textoBoton = boton.GetComponentInChildren<Text>();
         texto = textoBoton.text;
@@ -25,6 +30,7 @@ public class BotonesNivel : MonoBehaviour
 
     private void EstablecerNivel()
     {
+		audioSource.PlayOneShot(sound);
         PlayerPrefs.DeleteKey("Nivel");
         PlayerPrefs.SetString("Nivel", texto);
         ActualizarColores();
