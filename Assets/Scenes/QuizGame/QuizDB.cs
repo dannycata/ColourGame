@@ -19,11 +19,9 @@ public class QuizDB : MonoBehaviour
 	{
 		if(r_questionlist.Count == 0)
 		{
-			//SceneManager.LoadScene("FinJuego");
 			return null;
 		}
 			
-		
 		int index = Random.Range(0, r_questionlist.Count);
 		
 		if(!remove)

@@ -32,22 +32,20 @@ public class Botones : MonoBehaviour
         texto = textoBoton.text;
 		audioSource.PlayOneShot(sound);
 		if (texto == "Salir"){
-			StartCoroutine(OnClickSalir(0.25f));
+			Invoke("Salir",0.25f);
 		}
-		else StartCoroutine(CambiarEscena(0.1f));
+		else Invoke("Escena",0.15f);
     }
 	
-	IEnumerator CambiarEscena(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        SceneManager.LoadScene(nombreDeLaNuevaEscena);
-    }
+	private void Salir()
+	{
+		Application.Quit();
+	}
 	
-	IEnumerator OnClickSalir(float delay)
-    {
-		yield return new WaitForSeconds(delay);
-        Application.Quit();
-    }
+	private void Escena()
+	{
+		SceneManager.LoadScene(nombreDeLaNuevaEscena);
+	}
 	
 	void OnApplicationQuit()
     {

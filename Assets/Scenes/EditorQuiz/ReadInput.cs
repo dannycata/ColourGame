@@ -29,33 +29,38 @@ public class ReadInput : MonoBehaviour
 
     void Read(string inputValue)
     {
-        if (float.TryParse(inputValue, out float result))
-        {
-            tiempo = result;
-            t_warning.enabled = false;
-            PlayerPrefs.SetFloat("VariableTiempo", tiempo);
-        }
-        else
-        {
-            t_warning.enabled = true;
-        }
+        if (!string.IsNullOrEmpty(inputValue))
+		{
+			if (float.TryParse(inputValue, out tiempo))
+			{
+				t_warning.enabled = false;
+				PlayerPrefs.SetFloat("VariableTiempo", tiempo);
+			}
+			else
+			{
+				t_warning.enabled = true;
+			}
+		}
     }
 	
 	void Read2(string inputValue)
     {
-        if (int.TryParse(inputValue, out int result))
-        {
-            preguntas = result;
-			q_warning.text = "Error: Fuera de rango";
-            q_warning.enabled = false;
-			if (preguntas >= 1 && preguntas <= 10) {
-				PlayerPrefs.SetInt("NPreguntas", preguntas);
-			} else q_warning.enabled = true;
-        }
-        else
-        {
-			q_warning.text = "Error: Inserta un numero";
-            q_warning.enabled = true;
-        }
+		if (!string.IsNullOrEmpty(inputValue))
+		{
+			if (int.TryParse(inputValue, out int result))
+			{
+				preguntas = result;
+				q_warning.text = "Error: Fuera de rango";
+				q_warning.enabled = false;
+				if (preguntas >= 1 && preguntas <= 10) {
+					PlayerPrefs.SetInt("NPreguntas", preguntas);
+				} else q_warning.enabled = true;
+			}
+			else
+			{
+				q_warning.text = "Error: Inserta un numero";
+				q_warning.enabled = true;
+			}
+		}
     }
 }

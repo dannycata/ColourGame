@@ -23,20 +23,19 @@ public class EntrarJuego : MonoBehaviour
         }
     }
 	
-	IEnumerator CambiarEscena(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        SceneManager.LoadScene(nombreDeLaNuevaEscena);
-    }
-	
     private void OnClickPlay()
     {
 		PlayerPrefs.DeleteKey("CorrectAnswersQUIZ");
 		PlayerPrefs.DeleteKey("IncorrectAnswersQUIZ");
 		PlayerPrefs.Save();
 		audioSource.PlayOneShot(sound);
-		StartCoroutine(CambiarEscena(0.1f));
+		Invoke("Escena",0.15f);
     }
+	
+	private void Escena()
+	{
+		SceneManager.LoadScene(nombreDeLaNuevaEscena);
+	}
 }
 
 
