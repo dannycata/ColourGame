@@ -53,6 +53,8 @@ public class Botones : MonoBehaviour
 		PlayerPrefs.DeleteKey("Nivel");
 		PlayerPrefs.DeleteKey("VariableTiempo");
 		PlayerPrefs.DeleteKey("NPreguntas");
+		PlayerPrefs.DeleteKey("VelocidadSimon");
+		PlayerPrefs.DeleteKey("NSecuencias");
 		PlayerPrefs.Save();
     }
 }

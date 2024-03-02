@@ -9,6 +9,7 @@ public class EntrarJuego : MonoBehaviour
 	[SerializeField] private AudioClip sound = null;
     private Button boton;
     public string nombreDeLaNuevaEscena = "QuizGame";
+	private string texto = null;
 	
 	private AudioSource audioSource = null;
 
@@ -25,12 +26,30 @@ public class EntrarJuego : MonoBehaviour
 	
     private void OnClickPlay()
     {
+		Text textoBoton = boton.GetComponentInChildren<Text>();
+        texto = textoBoton.text;
+		if (texto == "Quiz"){
+			Invoke("Quiz",0.25f);
+		} else if (texto == "Simon"){
+			Invoke("Simon",0.15f);
+		}
+    }
+	
+	private void Quiz()
+	{
 		PlayerPrefs.DeleteKey("CorrectAnswersQUIZ");
 		PlayerPrefs.DeleteKey("IncorrectAnswersQUIZ");
 		PlayerPrefs.Save();
 		audioSource.PlayOneShot(sound);
 		Invoke("Escena",0.15f);
-    }
+	}
+	
+	private void Simon()
+	{
+		PlayerPrefs.DeleteKey("CorrectAnswersSimon");
+		audioSource.PlayOneShot(sound);
+		Invoke("Escena",0.15f);
+	}
 	
 	private void Escena()
 	{

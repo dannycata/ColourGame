@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
 	
 	private void Start()
 	{
+		PlayerPrefs.SetString("Juego", "Quiz");
 		n_question = PlayerPrefs.GetInt("NPreguntas", 5);
 		quizDBFObject = GameObject.Find(PlayerPrefs.GetString("Nivel", "Nivel Facil"));
 		quizDBComponent = quizDBFObject.GetComponent<QuizDB>();

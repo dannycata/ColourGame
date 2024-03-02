@@ -14,7 +14,6 @@ public class Timer : MonoBehaviour
 	[SerializeField] private List<OpcionBoton> r_buttonList = null;
 	private Button boton;
 	private bool respuestaEncontrada = false;
-	private bool visible = false;
 	
     public void Starts()
     {
