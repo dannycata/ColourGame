@@ -6,13 +6,13 @@ using UnityEngine.UI;
 
 public class QuizUI : MonoBehaviour
 {
-    [SerializeField] private Text r_question = null;
+    //[SerializeField] private Text r_question = null;
 	[SerializeField] private Image r_questioncolor = null;
 	[SerializeField] private List<OpcionBoton> r_buttonList = null;
 	
 	public void Construtc(Pregunta p, Action<OpcionBoton> callback)
 	{
-		r_question.text = p.text;
+		//r_question.text = p.text;
 		
 		for (int n=0; n<r_buttonList.Count ; n++)
 		{

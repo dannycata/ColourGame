@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
 	
 	private void Start()
 	{
+		PlayerPrefs.SetString("Juego", "Quiz");
 		n_question = PlayerPrefs.GetInt("NPreguntas", 5);
 		quizDBFObject = GameObject.Find(PlayerPrefs.GetString("Nivel", "Nivel Facil"));
 		quizDBComponent = quizDBFObject.GetComponent<QuizDB>();
@@ -81,4 +82,15 @@ public class GameManager : MonoBehaviour
 		r_audioSource.Play();
 		Invoke("NextQuestion", r_waitTime);
 	}
+	
+	void OnApplicationQuit()
+    {
+        PlayerPrefs.DeleteKey("Animacion");
+		PlayerPrefs.DeleteKey("Nivel");
+		PlayerPrefs.DeleteKey("VariableTiempo");
+		PlayerPrefs.DeleteKey("NPreguntas");
+		PlayerPrefs.DeleteKey("VelocidadSimon");
+		PlayerPrefs.DeleteKey("NSecuencias");
+		PlayerPrefs.Save();
+    }
 }
