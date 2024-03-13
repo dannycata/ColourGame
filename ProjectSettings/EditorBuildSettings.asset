@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MenuJuegos/MenuJuegos.unity
     guid: 30336093a8caa5d4aa576585095594dc
   - enabled: 1
+    path: Assets/Scenes/MenuJuegos/MenuEditor.unity
+    guid: 9f89fab1157328d41b2eb2fa6564a7cc
+  - enabled: 1
     path: Assets/Scenes/MenuJuegos/QuizGame/EDITORQUIZ/EditorQuiz.unity
     guid: d7ad931d01aa82442b6873e3ce2e17f0
   - enabled: 1

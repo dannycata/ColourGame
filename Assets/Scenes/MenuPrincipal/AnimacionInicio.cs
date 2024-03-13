@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AnimacionInicio : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class AnimacionInicio : MonoBehaviour
 	
     private void Start()
     {
+		
 		int animacion = PlayerPrefs.GetInt("Animacion", 1);
 		Camera mainCamera = Camera.main;
 		audioSource = mainCamera.GetComponent<AudioSource>();

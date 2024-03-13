@@ -10,21 +10,54 @@ public class GameManagerSimon : MonoBehaviour
     [SerializeField] List<int> colorOrder;
     [SerializeField] int pickNumber = 0;
 	[SerializeField] Text texto;
-	[SerializeField] GameObject panel;
+	[SerializeField] GameObject panelinvisible;
 	[SerializeField] private string nombreDeLaNuevaEscena = "FinJuego";
+	[SerializeField] private GameObject panelcomienzo = null;
+	[SerializeField] private GameObject panel = null;
+	[SerializeField] private GameObject menu = null;
+	private Button botoncomienzo;
+	private Button botonmenu;
+	private Text cuentaAtras = null;
 	private int nsecuencias;
 	private float pickDelay;
-	private int aciertos=0;
 	public Coroutine rutina;
 	int score=0;
 	
 
     void Start()
     {
+		panelcomienzo.SetActive(true);
+		panel.SetActive(false);
+		menu.SetActive(false);
 		PlayerPrefs.SetString("Juego", "Simon");
-		pickDelay = PlayerPrefs.GetFloat("VelocidadSimon", 0.4f);
+		pickDelay = PlayerPrefs.GetFloat("VelocidadSimon", 1f);
 		nsecuencias = PlayerPrefs.GetInt("NSecuencias", 5);
-        ResetGame();
+		cuentaAtras = GameObject.Find("CuentaAtras").GetComponent<Text>();
+		cuentaAtras.gameObject.SetActive(false);
+		botoncomienzo = GameObject.Find("Empezar").GetComponent<Button>();
+		botonmenu = GameObject.Find("BotonPausa").GetComponent<Button>();
+		botonmenu.gameObject.SetActive(false);
+		botoncomienzo.onClick.AddListener(CuentaAtras);
+    }
+	
+	public void CuentaAtras()
+	{
+		botoncomienzo.gameObject.SetActive(false);
+		cuentaAtras.gameObject.SetActive(true);
+		StartCoroutine(CuentaAtrasCoroutine());
+	}
+	
+	IEnumerator CuentaAtrasCoroutine()
+    {
+        int numeroInicial = 3;
+        for (int i = numeroInicial; i > 0; i--)
+        {
+            cuentaAtras.text = i.ToString();
+            yield return new WaitForSeconds(1f);
+        }
+		panelcomienzo.SetActive(false);
+		botonmenu.gameObject.SetActive(true);
+		ResetGame();
         SetButtonIndex();
         StartGame();
     }
@@ -60,8 +93,8 @@ public class GameManagerSimon : MonoBehaviour
 	void Panel()
 	{
 		texto.text = "Tu turno";
-		texto.color = Color.white;
-		panel.SetActive(false);
+		texto.color = Color.black;
+		panelinvisible.SetActive(false);
 	}
 
     void PickRandomColor()
@@ -87,7 +120,7 @@ public class GameManagerSimon : MonoBehaviour
 					SceneManager.LoadScene(nombreDeLaNuevaEscena);
 				}
 				StartGame();
-				panel.SetActive(true);
+				panelinvisible.SetActive(true);
             }
         }
         else
@@ -110,5 +143,16 @@ public class GameManagerSimon : MonoBehaviour
     void ResetGame()
     {
         colorOrder.Clear();
+    }
+	
+	void OnApplicationQuit()
+    {
+        PlayerPrefs.DeleteKey("Animacion");
+		PlayerPrefs.DeleteKey("Nivel");
+		PlayerPrefs.DeleteKey("VariableTiempo");
+		PlayerPrefs.DeleteKey("NPreguntas");
+		PlayerPrefs.DeleteKey("VelocidadSimon");
+		PlayerPrefs.DeleteKey("NSecuencias");
+		PlayerPrefs.Save();
     }
 }

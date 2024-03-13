@@ -82,4 +82,15 @@ public class GameManager : MonoBehaviour
 		r_audioSource.Play();
 		Invoke("NextQuestion", r_waitTime);
 	}
+	
+	void OnApplicationQuit()
+    {
+        PlayerPrefs.DeleteKey("Animacion");
+		PlayerPrefs.DeleteKey("Nivel");
+		PlayerPrefs.DeleteKey("VariableTiempo");
+		PlayerPrefs.DeleteKey("NPreguntas");
+		PlayerPrefs.DeleteKey("VelocidadSimon");
+		PlayerPrefs.DeleteKey("NSecuencias");
+		PlayerPrefs.Save();
+    }
 }
