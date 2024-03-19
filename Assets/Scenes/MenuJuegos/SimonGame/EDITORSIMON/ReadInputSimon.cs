@@ -16,7 +16,7 @@ public class ReadInputSimon : MonoBehaviour
     {
         inputFieldVelocidad = GameObject.Find("InputFieldVelocidad").GetComponent<InputField>();
 		inputFieldSecuencia = GameObject.Find("InputFieldSecuencia").GetComponent<InputField>();
-		inputFieldVelocidad.placeholder.GetComponent<Text>().text = PlayerPrefs.GetFloat("VelocidadSimon", 0.4f).ToString();
+		inputFieldVelocidad.placeholder.GetComponent<Text>().text = PlayerPrefs.GetFloat("VelocidadSimon", 1f).ToString();
 		inputFieldSecuencia.placeholder.GetComponent<Text>().text = PlayerPrefs.GetInt("NSecuencias", 5).ToString();
         v_warning = GameObject.Find("v_warning").GetComponent<Text>();
 		s_warning = GameObject.Find("s_warning").GetComponent<Text>();

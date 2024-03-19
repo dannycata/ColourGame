@@ -65,6 +65,7 @@ public class GameManagerSimon : MonoBehaviour
 	void StartGame()
 	{
 		texto.text = "Memoriza";
+		panelinvisible.SetActive(true);
 		texto.color = Color.green;
 		rutina = StartCoroutine("PlayGame");
 	}
@@ -120,7 +121,6 @@ public class GameManagerSimon : MonoBehaviour
 					SceneManager.LoadScene(nombreDeLaNuevaEscena);
 				}
 				StartGame();
-				panelinvisible.SetActive(true);
             }
         }
         else
@@ -153,6 +153,7 @@ public class GameManagerSimon : MonoBehaviour
 		PlayerPrefs.DeleteKey("NPreguntas");
 		PlayerPrefs.DeleteKey("VelocidadSimon");
 		PlayerPrefs.DeleteKey("NSecuencias");
+		PlayerPrefs.DeleteKey("Colores");
 		PlayerPrefs.Save();
     }
 }

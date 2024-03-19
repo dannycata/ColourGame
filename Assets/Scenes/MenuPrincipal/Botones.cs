@@ -47,7 +47,7 @@ public class Botones : MonoBehaviour
 		else if (texto == "Editar"){
 			Invoke("Editar",0.25f);
 		}
-		else Invoke("Escena",0.15f);
+		else Invoke("Escena",0.25f);
     }
 	
 	private void Salir()
@@ -73,6 +73,7 @@ public class Botones : MonoBehaviour
 		PlayerPrefs.DeleteKey("NPreguntas");
 		PlayerPrefs.DeleteKey("VelocidadSimon");
 		PlayerPrefs.DeleteKey("NSecuencias");
+		PlayerPrefs.DeleteKey("Colores");
 		PlayerPrefs.Save();
     }
 }
