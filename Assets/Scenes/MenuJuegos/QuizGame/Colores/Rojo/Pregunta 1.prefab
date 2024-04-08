@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: "\xBFQue color es el siguiente?"
-  color: {r: 0.82745105, g: 0.15294118, b: 0.19215688, a: 1}
+  color: {r: 0.7725491, g: 0.41176474, b: 0.43137258, a: 1}
   opciones:
   - text: A
     correct: 0

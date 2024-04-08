@@ -11,7 +11,9 @@ public class BotonesColores : MonoBehaviour
     private Color colorSeleccionado;
     private Color colorNormal= Color.white;
     private Button boton;
+	private Text minmax;
     private string texto;
+	public static int totalVariable;
 	
 	private AudioSource audioSource = null;
 
@@ -21,11 +23,21 @@ public class BotonesColores : MonoBehaviour
 		Camera mainCamera = Camera.main;
 		audioSource = mainCamera.GetComponent<AudioSource>();
         boton = GetComponent<Button>();
+		minmax = GameObject.Find("minmax").GetComponent<Text>();
         Text textoBoton = boton.GetComponentInChildren<Text>();
         texto = textoBoton.text;
 		if (PlayerPrefs.GetString("Colores", "") == "") PlayerPrefs.SetString("Colores", "Rojo,Amarillo,Azul,Verde,Rosa");
         boton.onClick.AddListener(click);
         ActualizarColores();
+    }
+	
+	void Update()
+    {	
+		string nombresColoresString = PlayerPrefs.GetString("Colores", "Rojo,Amarillo,Azul,Verde,Rosa");
+		string[] nombresColores = nombresColoresString.Split(',');
+		
+		totalVariable = Mathf.Min(nombresColores.Length, 8) * 6;
+		minmax.text = "Min 1 - Max "+totalVariable;
     }
 
     private void ActualizarColores()

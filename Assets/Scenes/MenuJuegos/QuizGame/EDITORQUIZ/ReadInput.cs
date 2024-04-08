@@ -52,7 +52,7 @@ public class ReadInput : MonoBehaviour
 				preguntas = result;
 				q_warning.text = "Error: Fuera de rango";
 				q_warning.enabled = false;
-				if (preguntas >= 1 && preguntas <= 10) {
+				if (preguntas >= 1 && preguntas <= BotonesColores.totalVariable) {
 					PlayerPrefs.SetInt("NPreguntas", preguntas);
 				} else q_warning.enabled = true;
 			}

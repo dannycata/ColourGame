@@ -38,18 +38,41 @@ public class GameController : MonoBehaviour
     }
 	
 	private void InitializeColors()
-	{
-		colors = new Color[corrects];
-		for (int i = 0; i < colors.Length; i++)
-		{
-			Color randomColor;
-			do
-			{
-				randomColor = new Color(Random.value, Random.value, Random.value);
-			} while (randomColor == Color.white);
-			colors[i] = randomColor;
-		}
-	}
+    {
+        colors = new Color[corrects];
+        for (int i = 0; i < colors.Length; i++)
+        {
+            Color randomColor;
+            bool colorIsValid;
+            do
+            {
+                randomColor = new Color(Random.value, Random.value, Random.value);
+                colorIsValid = IsColorValid(randomColor, i);
+            } while (!colorIsValid);
+            colors[i] = randomColor;
+        }
+    }
+
+    private bool IsColorValid(Color newColor, int currentIndex)
+    {
+        for (int i = 0; i < currentIndex; i++)
+        {
+            float distance = ColorDistance(newColor, colors[i]);
+            if (distance < 0.5f)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private float ColorDistance(Color c1, Color c2)
+    {
+        float r = c1.r - c2.r;
+        float g = c1.g - c2.g;
+        float b = c1.b - c2.b;
+        return Mathf.Sqrt(r * r + g * g + b * b);
+    }
 
 
 	void Start()

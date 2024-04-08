@@ -3701,7 +3701,7 @@ GameObject:
   - component: {fileID: 1393408160}
   - component: {fileID: 1393408159}
   m_Layer: 5
-  m_Name: segundos
+  m_Name: minmax
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
