@@ -32,6 +32,8 @@ public class EntrarJuego : MonoBehaviour
 			Invoke("Quiz",0.25f);
 		} else if (texto == "Simon"){
 			Invoke("Simon",0.15f);
+		} else if (texto == "Parejas"){
+			Invoke("Parejas",0.15f);
 		}
     }
 	
@@ -47,6 +49,15 @@ public class EntrarJuego : MonoBehaviour
 	private void Simon()
 	{
 		PlayerPrefs.DeleteKey("CorrectAnswersSimon");
+		audioSource.PlayOneShot(sound);
+		Invoke("Escena",0.15f);
+	}
+	
+	private void Parejas()
+	{
+		PlayerPrefs.DeleteKey("CorrectAnswersPair");
+		string nombreEscenaActual = SceneManager.GetActiveScene().name;
+		if (nombreEscenaActual == "MenuJuegos") nombreDeLaNuevaEscena = "PairGame"+ PlayerPrefs.GetString("Dimensiones", "4x2");
 		audioSource.PlayOneShot(sound);
 		Invoke("Escena",0.15f);
 	}

@@ -14,7 +14,6 @@ public class BotonPausa : MonoBehaviour
 	[SerializeField] private Button salir;
 	[SerializeField] private string nombreDeLaNuevaEscena = "MenuJuegos";
 	private Button botonmenu;
-	private Timer timer = null;
 	
 	[SerializeField] private AudioClip sound = null;
 	private AudioSource audioSource = null;
@@ -26,7 +25,6 @@ public class BotonPausa : MonoBehaviour
 		menu.SetActive(false);
 		menuopciones.SetActive(false);
 		botonmenu = GetComponent<Button>();
-		timer = GameObject.FindObjectOfType<Timer>();
         botonmenu.onClick.AddListener(Menu);
     }
 
@@ -36,6 +34,7 @@ public class BotonPausa : MonoBehaviour
 		botonmenu.gameObject.SetActive(false);
         menu.SetActive(true);
 		Timer.actualizar = false;
+		Timer2.actualizar = false;
 		continuar.onClick.AddListener(Continuar);
 		opciones.onClick.AddListener(Opciones);
 		salir.onClick.AddListener(Salir);
@@ -47,6 +46,7 @@ public class BotonPausa : MonoBehaviour
 		botonmenu.gameObject.SetActive(true);
         menu.SetActive(false);
 		Timer.actualizar = true;
+		Timer2.actualizar = true;
     }
 	
 	void Opciones()

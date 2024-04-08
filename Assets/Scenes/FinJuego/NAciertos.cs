@@ -6,11 +6,11 @@ using UnityEngine.UI;
 public class NAciertos : MonoBehaviour
 {
     public Text texto;
+	public static string juego;
 
     void Start()
     {
-		string juego = PlayerPrefs.GetString("Juego");
-		Debug.Log(""+juego);
+		juego = PlayerPrefs.GetString("Juego");
 		
 		if (juego == "Quiz")
 		{
@@ -19,6 +19,10 @@ public class NAciertos : MonoBehaviour
 		else if (juego == "Simon")
 		{
 			Simon();
+		}
+		else if (juego == "Pair")
+		{
+			Pair();
 		}
 		PlayerPrefs.DeleteKey("Juego");
     }
@@ -37,5 +41,13 @@ public class NAciertos : MonoBehaviour
 	int correctAnswers = PlayerPrefs.GetInt("CorrectAnswersSimon", 0);
 
     texto.text = "Numero de secuencias correctas: " + correctAnswers;
+	}
+	
+	void Pair()
+	{
+	int correctAnswers = PlayerPrefs.GetInt("CorrectAnswersPair", 0);
+	int attempts = PlayerPrefs.GetInt("AttemptsPair", 0);
+
+    texto.text = "Numero de aciertos: " + correctAnswers + "   Numero de intentos: " + attempts ;
 	}
 }

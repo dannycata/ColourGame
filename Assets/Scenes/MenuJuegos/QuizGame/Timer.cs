@@ -58,6 +58,7 @@ public class Timer : MonoBehaviour
         int numeroInicial = 3;
         for (int i = numeroInicial; i > 0; i--)
         {
+			audioSource.PlayOneShot(sound);
             cuentaAtras.text = i.ToString();
             yield return new WaitForSeconds(1f);
         }

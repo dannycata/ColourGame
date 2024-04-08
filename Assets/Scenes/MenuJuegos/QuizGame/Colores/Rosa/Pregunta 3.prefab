@@ -48,20 +48,20 @@ MonoBehaviour:
   color: {r: 0.95294124, g: 0.48235297, b: 0.8078432, a: 1}
   opciones:
   - text: A
-    correct: 0
-    color: {r: 0.5622641, g: 0.041374087, b: 0.30484733, a: 1}
-  - text: B
     correct: 1
     color: {r: 0.9547169, g: 0.48096114, b: 0.80828345, a: 1}
-  - text: C
-    correct: 0
-    color: {r: 0.82745105, g: 0.15294118, b: 0.49411768, a: 1}
-  - text: D
-    correct: 0
-    color: {r: 0.827451, g: 0.15294118, b: 0.35974628, a: 1}
-  - text: E
-    correct: 0
-    color: {r: 0.9245283, g: 0.37504447, b: 0.65298086, a: 1}
-  - text: F
+  - text: B
     correct: 0
     color: {r: 0.645283, g: 0.21793514, b: 0.56112826, a: 1}
+  - text: C
+    correct: 0
+    color: {r: 0.9245283, g: 0.37504447, b: 0.65298086, a: 1}
+  - text: D
+    correct: 0
+    color: {r: 0.82745105, g: 0.15294118, b: 0.49411768, a: 1}
+  - text: E
+    correct: 0
+    color: {r: 0.5622641, g: 0.041374087, b: 0.30484733, a: 1}
+  - text: F
+    correct: 0
+    color: {r: 0.827451, g: 0.15294118, b: 0.35974628, a: 1}

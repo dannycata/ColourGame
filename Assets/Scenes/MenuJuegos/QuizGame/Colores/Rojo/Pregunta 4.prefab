@@ -45,23 +45,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: "\xBFQue color es el siguiente?"
-  color: {r: 1, g: 0.36037737, b: 0.39756492, a: 1}
+  color: {r: 0.6, g: 0.18431373, b: 0.03137255, a: 1}
   opciones:
   - text: A
     correct: 0
-    color: {r: 0.93962264, g: 0.09750791, b: 0.14377789, a: 1}
+    color: {r: 0.9245283, g: 0.32784477, b: 0.13082935, a: 1}
   - text: B
     correct: 0
-    color: {r: 0.5294118, g: 0.17254902, b: 0.19215688, a: 1}
+    color: {r: 0.7735849, g: 0.4130651, b: 0.43127304, a: 1}
   - text: C
-    correct: 1
-    color: {r: 1, g: 0.36078432, b: 0.39607847, a: 1}
+    correct: 0
+    color: {r: 0.5294118, g: 0.17254902, b: 0.19215688, a: 1}
   - text: D
     correct: 0
-    color: {r: 0.7207546, g: 0.22701655, b: 0.091114245, a: 1}
+    color: {r: 0.82641506, g: 0.15436803, b: 0.19129366, a: 1}
   - text: E
-    correct: 0
-    color: {r: 0.7660377, g: 0, b: 0.092915796, a: 1}
+    correct: 1
+    color: {r: 0.5999999, g: 0.18303736, b: 0.030565985, a: 1}
   - text: F
     correct: 0
-    color: {r: 0.82641506, g: 0.44369182, b: 0.33524382, a: 1}
+    color: {r: 0.9622642, g: 0.46297613, b: 0.5498088, a: 1}

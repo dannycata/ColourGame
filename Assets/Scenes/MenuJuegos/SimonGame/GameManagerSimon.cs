@@ -23,6 +23,10 @@ public class GameManagerSimon : MonoBehaviour
 	public Coroutine rutina;
 	int score=0;
 	
+	[SerializeField] private AudioClip sound = null;
+
+    private AudioSource audioSource = null;
+	
 
     void Start()
     {
@@ -38,6 +42,8 @@ public class GameManagerSimon : MonoBehaviour
 		botonmenu = GameObject.Find("BotonPausa").GetComponent<Button>();
 		botonmenu.gameObject.SetActive(false);
 		botoncomienzo.onClick.AddListener(CuentaAtras);
+		Camera mainCamera = Camera.main;
+		audioSource = mainCamera.GetComponent<AudioSource>();
     }
 	
 	public void CuentaAtras()
@@ -52,6 +58,7 @@ public class GameManagerSimon : MonoBehaviour
         int numeroInicial = 3;
         for (int i = numeroInicial; i > 0; i--)
         {
+			audioSource.PlayOneShot(sound);
             cuentaAtras.text = i.ToString();
             yield return new WaitForSeconds(1f);
         }
@@ -154,6 +161,7 @@ public class GameManagerSimon : MonoBehaviour
 		PlayerPrefs.DeleteKey("VelocidadSimon");
 		PlayerPrefs.DeleteKey("NSecuencias");
 		PlayerPrefs.DeleteKey("Colores");
+		PlayerPrefs.DeleteKey("VelocidadPair");
 		PlayerPrefs.Save();
     }
 }

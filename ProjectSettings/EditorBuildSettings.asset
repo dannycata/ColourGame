@@ -27,6 +27,18 @@ EditorBuildSettings:
     path: Assets/Scenes/MenuJuegos/SimonGame/EDITORSIMON/EditorSimon.unity
     guid: 95a10941c4351cb41a3a4378e6a492f5
   - enabled: 1
+    path: Assets/Scenes/MenuJuegos/PairGame/PairGame4x2.unity
+    guid: 2b161d0ef16d72744af4e0aa16ca40d6
+  - enabled: 1
+    path: Assets/Scenes/MenuJuegos/PairGame/PairGame6x2.unity
+    guid: 35a6fbae3c8b82e458a5e597640569cd
+  - enabled: 1
+    path: Assets/Scenes/MenuJuegos/PairGame/PairGame6x3.unity
+    guid: a3ee1eb9f8c92e34f9b6f9e652f31bb9
+  - enabled: 1
+    path: Assets/Scenes/MenuJuegos/PairGame/EDITORPAIR/EditorPair.unity
+    guid: 00c8b4b9201df6948a1d7ab813a240c8
+  - enabled: 1
     path: Assets/Scenes/FinJuego/FinJuego.unity
     guid: 985c4429ef62ccf479d61284e0cb41bf
   m_configObjects: {}

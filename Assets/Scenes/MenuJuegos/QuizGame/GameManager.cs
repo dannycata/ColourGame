@@ -149,6 +149,7 @@ public class GameManager : MonoBehaviour
 		PlayerPrefs.DeleteKey("VelocidadSimon");
 		PlayerPrefs.DeleteKey("NSecuencias");
 		PlayerPrefs.DeleteKey("Colores");
+		PlayerPrefs.DeleteKey("VelocidadPair");
 		PlayerPrefs.Save();
     }
 }
