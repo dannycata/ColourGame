@@ -21,7 +21,9 @@ public class GameManagerSimon : MonoBehaviour
 	private int nsecuencias;
 	private float pickDelay;
 	public Coroutine rutina;
+	private string nombre;
 	int score=0;
+	public static bool acierto;
 	
 	[SerializeField] private AudioClip sound = null;
 
@@ -30,12 +32,13 @@ public class GameManagerSimon : MonoBehaviour
 
     void Start()
     {
+		nombre = PlayerPrefs.GetString("Nombre", "");
 		panelcomienzo.SetActive(true);
 		panel.SetActive(false);
 		menu.SetActive(false);
 		PlayerPrefs.SetString("Juego", "Simon");
-		pickDelay = PlayerPrefs.GetFloat("VelocidadSimon", 1f);
-		nsecuencias = PlayerPrefs.GetInt("NSecuencias", 5);
+		pickDelay = PlayerPrefs.GetFloat(nombre+"VelocidadSimon", 1f);
+		nsecuencias = PlayerPrefs.GetInt(nombre+"NSecuencias", 5);
 		cuentaAtras = GameObject.Find("CuentaAtras").GetComponent<Text>();
 		cuentaAtras.gameObject.SetActive(false);
 		botoncomienzo = GameObject.Find("Empezar").GetComponent<Button>();
@@ -69,7 +72,7 @@ public class GameManagerSimon : MonoBehaviour
         StartGame();
     }
 	
-	void StartGame()
+	public void StartGame()
 	{
 		texto.text = "Memoriza";
 		panelinvisible.SetActive(true);
@@ -112,40 +115,51 @@ public class GameManagerSimon : MonoBehaviour
         colorOrder.Add(rnd);
     }
 
-    public void PlayersPick(int pick)
+    public IEnumerator PlayersPick(int pick)
     {
         if(pick == colorOrder[pickNumber])
         {
             Debug.Log("Acierto");
-
+			acierto = true;
             pickNumber++;
             if(pickNumber == colorOrder.Count)
             {
 				score++;
 				if (pickNumber == nsecuencias)
 				{
-					PlayerPrefs.SetInt("CorrectAnswersSimon", score);
-					SceneManager.LoadScene(nombreDeLaNuevaEscena);
+					PlayerPrefs.SetInt(nombre+"CorrectAnswersSimon", score);
+					Invoke("CambioEscena",1.5f);
 				}
-				StartGame();
+				while (!BotonSimon.condicionCumplida){
+					yield return null;
+				}
+				Invoke("StartGame",1f);
             }
         }
         else
         {
             Debug.Log("Fallo");
+			acierto = false;
 			if (rutina != null)
 			{
 				StopCoroutine(rutina);
 				rutina = null;
 			}
-			PlayerPrefs.SetInt("CorrectAnswersSimon", score);
+			
+			PlayerPrefs.SetInt(nombre+"CorrectAnswersSimon", score);
+			
 			if(pickNumber == nsecuencias)
 			{
-				SceneManager.LoadScene(nombreDeLaNuevaEscena);
+				Invoke("CambioEscena",1.5f);
 			}
-            SceneManager.LoadScene(nombreDeLaNuevaEscena);
+			Invoke("CambioEscena",1.5f);
         }
     }
+	
+	void CambioEscena()
+	{
+		SceneManager.LoadScene(nombreDeLaNuevaEscena);
+	}
 
     void ResetGame()
     {
@@ -156,12 +170,6 @@ public class GameManagerSimon : MonoBehaviour
     {
         PlayerPrefs.DeleteKey("Animacion");
 		PlayerPrefs.DeleteKey("Nivel");
-		PlayerPrefs.DeleteKey("VariableTiempo");
-		PlayerPrefs.DeleteKey("NPreguntas");
-		PlayerPrefs.DeleteKey("VelocidadSimon");
-		PlayerPrefs.DeleteKey("NSecuencias");
-		PlayerPrefs.DeleteKey("Colores");
-		PlayerPrefs.DeleteKey("VelocidadPair");
 		PlayerPrefs.Save();
     }
 }

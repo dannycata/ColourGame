@@ -11,13 +11,15 @@ public class ReadInputSimon : MonoBehaviour
 	private InputField inputFieldSecuencia;
     private Text v_warning;
 	private Text s_warning;
+	private string nombre;
 
     void Start()
     {
+		nombre = PlayerPrefs.GetString("Nombre", "");
         inputFieldVelocidad = GameObject.Find("InputFieldVelocidad").GetComponent<InputField>();
 		inputFieldSecuencia = GameObject.Find("InputFieldSecuencia").GetComponent<InputField>();
-		inputFieldVelocidad.placeholder.GetComponent<Text>().text = PlayerPrefs.GetFloat("VelocidadSimon", 1f).ToString();
-		inputFieldSecuencia.placeholder.GetComponent<Text>().text = PlayerPrefs.GetInt("NSecuencias", 5).ToString();
+		inputFieldVelocidad.placeholder.GetComponent<Text>().text = PlayerPrefs.GetFloat(nombre+"VelocidadSimon", 1f).ToString();
+		inputFieldSecuencia.placeholder.GetComponent<Text>().text = PlayerPrefs.GetInt(nombre+"NSecuencias", 5).ToString();
         v_warning = GameObject.Find("v_warning").GetComponent<Text>();
 		s_warning = GameObject.Find("s_warning").GetComponent<Text>();
         v_warning.enabled = false;
@@ -34,7 +36,7 @@ public class ReadInputSimon : MonoBehaviour
 			if (float.TryParse(inputValue, out velocidad))
 			{
 				v_warning.enabled = false;
-				PlayerPrefs.SetFloat("VelocidadSimon", velocidad);
+				PlayerPrefs.SetFloat(nombre+"VelocidadSimon", velocidad);
 			}
 			else
 			{
@@ -53,7 +55,7 @@ public class ReadInputSimon : MonoBehaviour
 				s_warning.text = "Error: Inserta un numero mayor";
 				s_warning.enabled = false;
 				if (secuencias >= 1) {
-					PlayerPrefs.SetInt("NSecuencias", secuencias);
+					PlayerPrefs.SetInt(nombre+"NSecuencias", secuencias);
 				} else s_warning.enabled = true;
 			}
 			else

@@ -1318,7 +1318,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Menu
+  m_Text: Pausa
 --- !u!222 &513768282
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1723,7 +1723,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Salir
+  m_Text: Salir del juego
 --- !u!222 &965240619
 CanvasRenderer:
   m_ObjectHideFlags: 0

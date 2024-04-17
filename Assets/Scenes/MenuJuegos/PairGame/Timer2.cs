@@ -16,17 +16,19 @@ public class Timer2 : MonoBehaviour
 	private Button botoncomienzo;
 	private Button botonmenu;
 	private Text cuentaAtras = null;
+	private string nombre;
 	
 	[SerializeField] private AudioClip sound = null;
 	private AudioSource audioSource = null;
 	
     public void Start()
     {
+		nombre = PlayerPrefs.GetString("Nombre", "");
 		Camera mainCamera = Camera.main;
 		audioSource = mainCamera.GetComponent<AudioSource>();
 		panelcomienzo.SetActive(true);
 		menu.SetActive(false);
-		maxTime = PlayerPrefs.GetFloat("VelocidadPair", 40f);
+		maxTime = PlayerPrefs.GetFloat(nombre+"VelocidadPair", 40f);
 		actualizar=false;
 		timerBar = GetComponent<Image> ();
 		ResetTimer();

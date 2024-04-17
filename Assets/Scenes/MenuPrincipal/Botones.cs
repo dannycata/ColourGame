@@ -10,7 +10,6 @@ public class Botones : MonoBehaviour
     private Button boton;
 	private string texto = null;
     public string nombreDeLaNuevaEscena = "QuizGame";
-	string nombreEscenaActual = null;
 	private GameObject panel = null;
 	private Image panelBrillo;
 	private float value;
@@ -21,7 +20,7 @@ public class Botones : MonoBehaviour
     {
 		panel = GameObject.Find("PanelBrillo");
 		panelBrillo = panel.GetComponent<Image>();
-		value = PlayerPrefs.GetFloat("Brillo",0f);
+		value = PlayerPrefs.GetFloat("Brillo",0.9f);
 		float resta = 0.9f - value;
 		panelBrillo.color = new Color(panelBrillo.color.r, panelBrillo.color.g, panelBrillo.color.b, resta);
 		value = PlayerPrefs.GetFloat("Volumen",0.5f);
@@ -40,11 +39,7 @@ public class Botones : MonoBehaviour
 		Text textoBoton = boton.GetComponentInChildren<Text>();
         texto = textoBoton.text;
 		audioSource.PlayOneShot(sound);
-		nombreEscenaActual = SceneManager.GetActiveScene().name;
-		if (texto == "Salir" && nombreEscenaActual == "MenuPrincipal"){
-			Invoke("Salir",0.25f);
-		}
-		else if (texto == "Editar"){
+		if (texto == "Editar"){
 			Invoke("Editar",0.25f);
 		}
 		else if (texto == "Volver a jugar"){
@@ -52,12 +47,6 @@ public class Botones : MonoBehaviour
 		}
 		else Invoke("Escena",0.25f);
     }
-	
-	private void Salir()
-	{
-		LimpiarPreferencias();
-		Application.Quit();
-	}
 	
 	private void Editar()
 	{
@@ -90,11 +79,6 @@ public class Botones : MonoBehaviour
     {
         PlayerPrefs.DeleteKey("Animacion");
         PlayerPrefs.DeleteKey("Nivel");
-        PlayerPrefs.DeleteKey("VariableTiempo");
-        PlayerPrefs.DeleteKey("NPreguntas");
-        PlayerPrefs.DeleteKey("VelocidadSimon");
-        PlayerPrefs.DeleteKey("NSecuencias");
-        PlayerPrefs.DeleteKey("Colores");
         PlayerPrefs.Save();
     }
 	

@@ -20,19 +20,21 @@ public class GameManager : MonoBehaviour
 	private float r_waitTime = 2f;
 	private QuizUI r_quizUI = null;
 	private AudioSource r_audioSource = null;
-	private int correctAnswers = 0;
-	private int incorrectAnswers = 0;
+	private int correctAnswers=0;
+	private int incorrectAnswers=0;
 	public Pregunta question = null;
 	private Timer r_timer = null;
 	public int n_question = 0;
 	private bool acierto = false;
 	private QuizDB[] componentesQuizDB = null;
+	private string nombre;
 	
 	
 	private void Start()
 	{
+		nombre = PlayerPrefs.GetString("Nombre", "");
 		PlayerPrefs.SetString("Juego", "Quiz");
-		n_question = PlayerPrefs.GetInt("NPreguntas", 5);
+		n_question = PlayerPrefs.GetInt(nombre+"NPreguntas", 5);
 		
 		BaseDatos();
 		
@@ -45,8 +47,8 @@ public class GameManager : MonoBehaviour
 	
 	private void BaseDatos()
 	{
-		if (PlayerPrefs.GetString("Colores", "") == "") PlayerPrefs.SetString("Colores", "Rojo,Amarillo,Azul,Verde,Rosa");
-		string nombresColoresString = PlayerPrefs.GetString("Colores", "Rojo,Amarillo,Azul,Verde,Rosa");
+		if (PlayerPrefs.GetString(nombre+"Colores", "") == "") PlayerPrefs.SetString(nombre+"Colores", "Rojo,Amarillo,Azul,Verde,Rosa");
+		string nombresColoresString = PlayerPrefs.GetString(nombre+"Colores", "Rojo,Amarillo,Azul,Verde,Rosa");
         string[] nombresColores = nombresColoresString.Split(',');
 		componentesQuizDB = new QuizDB[nombresColores.Length];
 
@@ -109,12 +111,12 @@ public class GameManager : MonoBehaviour
 		if (optionButton.Opcion.correct)
 		{
 			correctAnswers++;
-			PlayerPrefs.SetInt("CorrectAnswersQUIZ", correctAnswers);
+			PlayerPrefs.SetInt(nombre+"CorrectAnswersQUIZ", correctAnswers);
 		}
 		else
 		{
 			incorrectAnswers++;
-			PlayerPrefs.SetInt("IncorrectAnswersQUIZ", incorrectAnswers);
+			PlayerPrefs.SetInt(nombre+"IncorrectAnswersQUIZ", incorrectAnswers);
 		}
 		PlayerPrefs.Save();
 
@@ -144,12 +146,6 @@ public class GameManager : MonoBehaviour
     {
         PlayerPrefs.DeleteKey("Animacion");
 		PlayerPrefs.DeleteKey("Nivel");
-		PlayerPrefs.DeleteKey("VariableTiempo");
-		PlayerPrefs.DeleteKey("NPreguntas");
-		PlayerPrefs.DeleteKey("VelocidadSimon");
-		PlayerPrefs.DeleteKey("NSecuencias");
-		PlayerPrefs.DeleteKey("Colores");
-		PlayerPrefs.DeleteKey("VelocidadPair");
 		PlayerPrefs.Save();
     }
 }

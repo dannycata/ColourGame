@@ -4287,7 +4287,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\xBFQue colores quieres que aparezcan?"
+  m_Text: "\xBFQue gamas de colores quieres que aparezcan?"
 --- !u!222 &1933631998
 CanvasRenderer:
   m_ObjectHideFlags: 0

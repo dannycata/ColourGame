@@ -49,7 +49,7 @@ MonoBehaviour:
   opciones:
   - text: A
     correct: 0
-    color: {r: 0.25433248, g: 0.9169811, b: 0.3168465, a: 1}
+    color: {r: 0.72181964, g: 1, b: 0, a: 1}
   - text: B
     correct: 0
     color: {r: 0.695372, g: 0.9622642, b: 0.7205505, a: 1}

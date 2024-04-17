@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
     public static int rows = 2;
 	public static int corrects = (columns * rows) / 2;
 	private int[] locations=null;
+	private string nombre;
     
     [SerializeField] private CartaScript startObject;
     [SerializeField] private Color[] colors;
@@ -77,8 +78,9 @@ public class GameController : MonoBehaviour
 
 	void Start()
 	{
+		nombre = PlayerPrefs.GetString("Nombre", "");
 		PlayerPrefs.SetString("Juego","Pair");
-		string dimensiones = PlayerPrefs.GetString("Dimensiones", "4x2");
+		string dimensiones = PlayerPrefs.GetString(nombre+"Dimensiones", "4x2");
 		if (dimensiones == "4x2")
 		{
 			locations = new int[] {0, 0, 1, 1, 2, 2, 3, 3};
@@ -150,6 +152,7 @@ public class GameController : MonoBehaviour
 		if(firstOpen.ID == secondOpen.ID)
 		{
 			score++;
+			PlayerPrefs.SetInt(nombre+"CorrectAnswersPair", score);
 			scoreText.text = "Puntos: " +score;
 		}
 		else
@@ -162,14 +165,13 @@ public class GameController : MonoBehaviour
 		
 		attempts++;
 		attemptsText.text = "Intentos: "+attempts;
+		PlayerPrefs.SetInt(nombre+"AttemptsPair", attempts);
 		
 		firstOpen = null;
 		secondOpen = null;
 		
 		if (score == corrects)
 		{
-			PlayerPrefs.SetInt("CorrectAnswersPair", score);
-			PlayerPrefs.SetInt("AttemptsPair", attempts);
 			SceneManager.LoadScene("FinJuego");
 		}
 	}
@@ -183,12 +185,6 @@ public class GameController : MonoBehaviour
     {
         PlayerPrefs.DeleteKey("Animacion");
 		PlayerPrefs.DeleteKey("Nivel");
-		PlayerPrefs.DeleteKey("VariableTiempo");
-		PlayerPrefs.DeleteKey("NPreguntas");
-		PlayerPrefs.DeleteKey("VelocidadSimon");
-		PlayerPrefs.DeleteKey("NSecuencias");
-		PlayerPrefs.DeleteKey("Colores");
-		PlayerPrefs.DeleteKey("VelocidadPair");
 		PlayerPrefs.Save();
     }
 }

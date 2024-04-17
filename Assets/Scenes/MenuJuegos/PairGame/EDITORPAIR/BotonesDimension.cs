@@ -12,9 +12,11 @@ public class BotonesDimension : MonoBehaviour
     private Color colorNormal = Color.white;
     private Button ultimoBotonSeleccionado = null;
     private AudioSource audioSource = null;
+	private string nombre;
 
     private void Start()
     {
+		nombre = PlayerPrefs.GetString("Nombre", "");
         colorSeleccionado = ColorUtility.TryParseHtmlString(hexColor, out Color color) ? color : Color.white;
         Camera mainCamera = Camera.main;
         audioSource = mainCamera.GetComponent<AudioSource>();
@@ -23,7 +25,7 @@ public class BotonesDimension : MonoBehaviour
 
     private void ActualizarColores()
     {
-        string dimensiones = PlayerPrefs.GetString("Dimensiones", "4x2");
+        string dimensiones = PlayerPrefs.GetString(nombre+"Dimensiones", "4x2");
         Button[] botones = FindObjectsOfType<Button>();
 
         foreach (Button boton in botones)
@@ -53,7 +55,7 @@ public class BotonesDimension : MonoBehaviour
     {
         audioSource.PlayOneShot(sound);
         botonActual.image.color = colorSeleccionado;
-        PlayerPrefs.SetString("Dimensiones", textoBoton);
+        PlayerPrefs.SetString(nombre+"Dimensiones", textoBoton);
 
         if (ultimoBotonSeleccionado != null && ultimoBotonSeleccionado != botonActual)
         {

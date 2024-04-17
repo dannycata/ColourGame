@@ -11,11 +11,13 @@ public class ReadInputPair : MonoBehaviour
 	private InputField inputFieldSecuencia;
     private Text v_warning;
 	private Text r_warning;
+	private string nombre;
 
     void Start()
     {
+		nombre = PlayerPrefs.GetString("Nombre", "");
         inputFieldVelocidad = GameObject.Find("InputFieldVelocidad").GetComponent<InputField>();
-		inputFieldVelocidad.placeholder.GetComponent<Text>().text = PlayerPrefs.GetFloat("VelocidadPair", 40f).ToString();
+		inputFieldVelocidad.placeholder.GetComponent<Text>().text = PlayerPrefs.GetFloat(nombre+"VelocidadPair", 40f).ToString();
         v_warning = GameObject.Find("v_warning").GetComponent<Text>();
         v_warning.enabled = false;
 		r_warning = GameObject.Find("r_warning").GetComponent<Text>();
@@ -26,7 +28,7 @@ public class ReadInputPair : MonoBehaviour
 	
 	void Update()
 	{
-		string dimensiones = PlayerPrefs.GetString("Dimensiones", "4x2");
+		string dimensiones = PlayerPrefs.GetString(nombre+"Dimensiones", "4x2");
 		if (dimensiones == "4x2")
 		{
 			r_warning.text = "Recomendado 40 o mas";
@@ -52,7 +54,7 @@ public class ReadInputPair : MonoBehaviour
 			{
 				v_warning.enabled = false;
 				r_warning.enabled = true;
-				PlayerPrefs.SetFloat("VelocidadPair", velocidad);
+				PlayerPrefs.SetFloat(nombre+"VelocidadPair", velocidad);
 			}
 			else
 			{

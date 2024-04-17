@@ -32,7 +32,8 @@ public class Timer : MonoBehaviour
 		panelcomienzo.SetActive(true);
 		panel.SetActive(false);
 		menu.SetActive(false);
-		maxTime = PlayerPrefs.GetFloat("VariableTiempo", 5f);
+		string nombre = PlayerPrefs.GetString("Nombre", "");
+		maxTime = PlayerPrefs.GetFloat(nombre+"VariableTiempo", 5f);
 		gameManager = mainCamera.GetComponent<GameManager>();
 		timerBar = GetComponent<Image> ();
 		ResetTimer();
