@@ -71,10 +71,15 @@ public class Timer2 : MonoBehaviour
 				timerBar.fillAmount = timeLeft / maxTime;
 			} else {
 				//Time.timeScale = 0;
-				SceneManager.LoadScene("FinJuego");
+				Invoke("End",1f);
 			}
 		}
     }
+	
+	public void End()
+	{
+		SceneManager.LoadScene("FinJuego");
+	}
 
     public void ResetTimer()
     {

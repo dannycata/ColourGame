@@ -16,6 +16,7 @@ public class Scroll : MonoBehaviour
 	private float value;
 	private string nombreDeLaEscenaActual;
 	private string nombreModificado;
+	[SerializeField] private GameObject noestadistica;
 
 	private AudioSource audioSource = null;
 	
@@ -46,6 +47,7 @@ public class Scroll : MonoBehaviour
 		
 		if (!string.IsNullOrEmpty(datos[0]))
 		{
+			noestadistica.SetActive(false);
 			estadistica.SetActive(true);
 			Text texto = estadistica.GetComponentInChildren<Text>();
 			texto.text = datos[0];
@@ -56,6 +58,10 @@ public class Scroll : MonoBehaviour
 				Text nuevotexto = nuevaEstadistica.GetComponentInChildren<Text>();
 				nuevotexto.text = datos[i];
 			}
+		}
+		else
+		{
+			noestadistica.SetActive(true);
 		}
     }
 	

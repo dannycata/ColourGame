@@ -13,11 +13,13 @@ public class Botones : MonoBehaviour
 	private GameObject panel = null;
 	private Image panelBrillo;
 	private float value;
+	string nombre;
 	
 	private AudioSource audioSource = null;
 
     private void Start()
     {
+		nombre = PlayerPrefs.GetString("Nombre", "");
 		panel = GameObject.Find("PanelBrillo");
 		panelBrillo = panel.GetComponent<Image>();
 		value = PlayerPrefs.GetFloat("Brillo",0.9f);
@@ -65,8 +67,7 @@ public class Botones : MonoBehaviour
 		}
 		else if (NAciertos.juego == "Pair")
 		{
-			
-			SceneManager.LoadScene("Pairgame"+PlayerPrefs.GetString("Dimensiones", "4x2"));
+			SceneManager.LoadScene("Pairgame"+PlayerPrefs.GetString(nombre+"Dimensiones", "4x2"));
 		}
 	}
 	

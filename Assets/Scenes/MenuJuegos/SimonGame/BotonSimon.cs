@@ -49,8 +49,6 @@ public class BotonSimon : MonoBehaviour
 	void ColorBoton()
 	{
 		string text = texto.text;
-		string fullHexColor;
-		string modifiedHexColor;
 		if (text == "Verde")
 		{
 			defaultC = PlayerPrefs.HasKey(nombre + "VerdeSimon") ? HexToColor(PlayerPrefs.GetString(nombre + "VerdeSimon")) : defaultColor;

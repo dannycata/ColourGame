@@ -154,13 +154,15 @@ public class GameController : MonoBehaviour
 			score++;
 			PlayerPrefs.SetInt(nombre+"CorrectAnswersPair", score);
 			scoreText.text = "Puntos: " +score;
+			firstOpen.Acierto();
+			secondOpen.Acierto();
 		}
 		else
 		{
 			yield return new WaitForSeconds(0.5f);
 			
-			firstOpen.Close();
-			secondOpen.Close();
+			firstOpen.Fallo();
+			secondOpen.Fallo();
 		}
 		
 		attempts++;
@@ -172,11 +174,11 @@ public class GameController : MonoBehaviour
 		
 		if (score == corrects)
 		{
-			SceneManager.LoadScene("FinJuego");
+			Invoke("End",1f);
 		}
 	}
 	
-	public void Restart()
+	public void End()
 	{
 		SceneManager.LoadScene("FinJuego");
 	}

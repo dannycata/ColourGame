@@ -28,7 +28,7 @@ public class ColoresSimon : MonoBehaviour
 
     void OpenColorPicker()
     {
-        ColorPicker.Create(image.color, "Choose the button's color!", SetColor, ColorFinished, true);
+        ColorPicker.Create(image.color, "Elige un color!", SetColor, ColorFinished, true);
     }
 
     private void SetColor(Color currentColor)
