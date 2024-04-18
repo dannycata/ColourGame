@@ -14,6 +14,8 @@ public class Match : MonoBehaviour
 	private GameObject GM;
 	private GameManagerMatch GMM;
 	public static int aciertos=0;
+	public int veces=0;
+	private bool hasExecuted = false;
 	
     private void Start()
     {
@@ -56,12 +58,16 @@ public class Match : MonoBehaviour
     }
 
     private IEnumerator ProcessMouseButtonUp()
-    {
+    {	
         yield return new WaitForSeconds(0.1f);
-
+		
+		veces++;
+		Debug.Log("Entro "+veces);
         RaycastHit2D hit = Physics2D.Raycast(endPoint, Vector2.zero);
-        if (hit.collider != null && hit.collider.TryGetComponent(out match) && matchId == match.Get_ID() && hit.collider.gameObject != gameObject)
+        if (hit.collider != null && hit.collider.TryGetComponent(out match) && matchId == match.Get_ID() && hit.collider.gameObject != gameObject && !hasExecuted)
         {
+			Debug.Log("Dentro");
+			hasExecuted = true;
             aciertos = aciertos + 1;
             this.enabled = false;
             match.enabled = false;
@@ -86,6 +92,7 @@ public class Match : MonoBehaviour
 
     public void eraseLine()
     {
+		hasExecuted = false;
         this.enabled = true;
         lineRenderer.SetPosition(0, Vector3.zero);
         lineRenderer.SetPosition(1, Vector3.zero);

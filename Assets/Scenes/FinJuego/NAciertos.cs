@@ -2,15 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class NAciertos : MonoBehaviour
 {
     public Text texto;
+	public static string juego;
+	private string nombre;
+	private string datos;
+	private DateTime now;
+    private string formattedDateTime;
 
     void Start()
     {
-		string juego = PlayerPrefs.GetString("Juego");
-		Debug.Log(""+juego);
+		DateTime now = DateTime.Now;
+		formattedDateTime = now.ToString("dd-MM-yyyy HH:mm:ss");
+		nombre = PlayerPrefs.GetString("Nombre", "");
+		juego = PlayerPrefs.GetString("Juego");
 		
 		if (juego == "Quiz")
 		{
@@ -20,22 +28,51 @@ public class NAciertos : MonoBehaviour
 		{
 			Simon();
 		}
+		else if (juego == "Pair")
+		{
+			Pair();
+		}
 		PlayerPrefs.DeleteKey("Juego");
     }
 	
 	void Quiz()
 	{
-	int correctAnswers = PlayerPrefs.GetInt("CorrectAnswersQUIZ", 0);
-	int incorrectAnswers = PlayerPrefs.GetInt("IncorrectAnswersQUIZ", 0);
-	int n_question = PlayerPrefs.GetInt("NPreguntas", 5);
+	int correctAnswers = PlayerPrefs.GetInt(nombre+"CorrectAnswersQUIZ", 0);
+	int incorrectAnswers = PlayerPrefs.GetInt(nombre+"IncorrectAnswersQUIZ", 0);
+	int n_question = PlayerPrefs.GetInt(nombre+"NPreguntas", 5);
 
     texto.text = "Numero de aciertos: " + correctAnswers + "   Numero de fallos: " + incorrectAnswers + "   Numero de preguntas: " + n_question;
+	
+	datos = PlayerPrefs.GetString(nombre+"DatosQuiz","") + formattedDateTime + "    " + texto.text + ",";
+	PlayerPrefs.SetString(nombre+"DatosQuiz", datos);
+	
+	PlayerPrefs.SetInt(nombre+"CorrectAnswersQUIZ",0);
+	PlayerPrefs.SetInt(nombre+"IncorrectAnswersQUIZ",0);
 	}
 	
 	void Simon()
 	{
-	int correctAnswers = PlayerPrefs.GetInt("CorrectAnswersSimon", 0);
+	int correctAnswers = PlayerPrefs.GetInt(nombre+"CorrectAnswersSimon", 0);
 
     texto.text = "Numero de secuencias correctas: " + correctAnswers;
+	
+	datos = PlayerPrefs.GetString(nombre+"DatosSimon","") + formattedDateTime + "    " + texto.text + ",";
+	PlayerPrefs.SetString(nombre+"DatosSimon", datos);
+	
+	PlayerPrefs.SetInt(nombre+"CorrectAnswersSimon",0);
+	}
+	
+	void Pair()
+	{
+	int correctAnswers = PlayerPrefs.GetInt(nombre+"CorrectAnswersPair", 0);
+	int attempts = PlayerPrefs.GetInt(nombre+"AttemptsPair", 0);
+
+    texto.text = "Numero de aciertos: " + correctAnswers + "   Numero de intentos: " + attempts ;
+	
+	datos = PlayerPrefs.GetString(nombre+"DatosPair","") + formattedDateTime + "    " + texto.text + ",";
+	PlayerPrefs.SetString(nombre+"DatosPair", datos);
+	
+	PlayerPrefs.SetInt(nombre+"CorrectAnswersPair",0);
+	PlayerPrefs.SetInt(nombre+"AttemptsPair",0);
 	}
 }

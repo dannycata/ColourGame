@@ -11,13 +11,15 @@ public class ReadInput : MonoBehaviour
 	private InputField inputFieldPregunta;
     private Text t_warning;
 	private Text q_warning;
+	private string nombre;
 
     void Start()
     {
+		nombre = PlayerPrefs.GetString("Nombre", "");
         inputFieldTiempo = GameObject.Find("InputFieldTiempo").GetComponent<InputField>();
 		inputFieldPregunta = GameObject.Find("InputFieldPregunta").GetComponent<InputField>();
-		inputFieldTiempo.placeholder.GetComponent<Text>().text = PlayerPrefs.GetFloat("VariableTiempo", 5f).ToString();
-		inputFieldPregunta.placeholder.GetComponent<Text>().text = PlayerPrefs.GetInt("NPreguntas", 5).ToString();
+		inputFieldTiempo.placeholder.GetComponent<Text>().text = PlayerPrefs.GetFloat(nombre+"VariableTiempo", 5f).ToString();
+		inputFieldPregunta.placeholder.GetComponent<Text>().text = PlayerPrefs.GetInt(nombre+"NPreguntas", 5).ToString();
         t_warning = GameObject.Find("t_warning").GetComponent<Text>();
 		q_warning = GameObject.Find("q_warning").GetComponent<Text>();
         t_warning.enabled = false;
@@ -34,7 +36,7 @@ public class ReadInput : MonoBehaviour
 			if (float.TryParse(inputValue, out tiempo))
 			{
 				t_warning.enabled = false;
-				PlayerPrefs.SetFloat("VariableTiempo", tiempo);
+				PlayerPrefs.SetFloat(nombre+"VariableTiempo", tiempo);
 			}
 			else
 			{
@@ -52,8 +54,8 @@ public class ReadInput : MonoBehaviour
 				preguntas = result;
 				q_warning.text = "Error: Fuera de rango";
 				q_warning.enabled = false;
-				if (preguntas >= 1 && preguntas <= 10) {
-					PlayerPrefs.SetInt("NPreguntas", preguntas);
+				if (preguntas >= 1 && preguntas <= BotonesColores.totalVariable) {
+					PlayerPrefs.SetInt(nombre+"NPreguntas", preguntas);
 				} else q_warning.enabled = true;
 			}
 			else

@@ -11,6 +11,9 @@ public class OpcionBoton : MonoBehaviour
 	
 	private Button r_button = null;
 	private Image r_image = null;
+	[SerializeField] public Sprite i_correct = null;
+	[SerializeField] public Sprite i_incorrect = null;
+	
 	private Text r_text = null;
 	private Color r_color = Color.black;
 	private Timer r_timer = null;
@@ -19,6 +22,11 @@ public class OpcionBoton : MonoBehaviour
 
 	private void Awake()
 	{
+		Image imagenBoton = transform.Find("ImagenBoton")?.GetComponent<Image>();
+		if (imagenBoton != null)
+		{
+			imagenBoton.gameObject.SetActive(false);
+		}
 		r_button = GetComponent<Button>();
 		r_image = GetComponent<Image>();
 		r_timer = GameObject.FindObjectOfType<Timer>();

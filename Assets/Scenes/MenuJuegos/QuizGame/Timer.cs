@@ -22,13 +22,18 @@ public class Timer : MonoBehaviour
 	private Button boton;
 	private bool respuestaEncontrada = false;
 	
+	[SerializeField] private AudioClip sound = null;
+	private AudioSource audioSource = null;
+	
     public void Starts()
     {
+		Camera mainCamera = Camera.main;
+		audioSource = mainCamera.GetComponent<AudioSource>();
 		panelcomienzo.SetActive(true);
 		panel.SetActive(false);
 		menu.SetActive(false);
-		maxTime = PlayerPrefs.GetFloat("VariableTiempo", 5f);
-		Camera mainCamera = Camera.main;
+		string nombre = PlayerPrefs.GetString("Nombre", "");
+		maxTime = PlayerPrefs.GetFloat(nombre+"VariableTiempo", 5f);
 		gameManager = mainCamera.GetComponent<GameManager>();
 		timerBar = GetComponent<Image> ();
 		ResetTimer();
@@ -43,6 +48,7 @@ public class Timer : MonoBehaviour
 	
 	public void CuentaAtras()
 	{
+		audioSource.PlayOneShot(sound);
 		botoncomienzo.gameObject.SetActive(false);
 		cuentaAtras.gameObject.SetActive(true);
 		StartCoroutine(CuentaAtrasCoroutine());
@@ -53,6 +59,7 @@ public class Timer : MonoBehaviour
         int numeroInicial = 3;
         for (int i = numeroInicial; i > 0; i--)
         {
+			audioSource.PlayOneShot(sound);
             cuentaAtras.text = i.ToString();
             yield return new WaitForSeconds(1f);
         }

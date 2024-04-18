@@ -10,11 +10,13 @@ public class EntrarJuego : MonoBehaviour
     private Button boton;
     public string nombreDeLaNuevaEscena = "QuizGame";
 	private string texto = null;
+	private string nombre;
 	
 	private AudioSource audioSource = null;
 
     private void Start()
     {
+		nombre = PlayerPrefs.GetString("Nombre", "");
         boton = GetComponent<Button>();
 		Camera mainCamera = Camera.main;
 		audioSource = mainCamera.GetComponent<AudioSource>();
@@ -32,13 +34,15 @@ public class EntrarJuego : MonoBehaviour
 			Invoke("Quiz",0.25f);
 		} else if (texto == "Simon"){
 			Invoke("Simon",0.15f);
+		} else if (texto == "Parejas"){
+			Invoke("Parejas",0.15f);
 		}
     }
 	
 	private void Quiz()
 	{
-		PlayerPrefs.DeleteKey("CorrectAnswersQUIZ");
-		PlayerPrefs.DeleteKey("IncorrectAnswersQUIZ");
+		PlayerPrefs.DeleteKey(nombre+"CorrectAnswersQUIZ");
+		PlayerPrefs.DeleteKey(nombre+"IncorrectAnswersQUIZ");
 		PlayerPrefs.Save();
 		audioSource.PlayOneShot(sound);
 		Invoke("Escena",0.15f);
@@ -46,7 +50,16 @@ public class EntrarJuego : MonoBehaviour
 	
 	private void Simon()
 	{
-		PlayerPrefs.DeleteKey("CorrectAnswersSimon");
+		PlayerPrefs.DeleteKey(nombre+"CorrectAnswersSimon");
+		audioSource.PlayOneShot(sound);
+		Invoke("Escena",0.15f);
+	}
+	
+	private void Parejas()
+	{
+		PlayerPrefs.DeleteKey(nombre+"CorrectAnswersPair");
+		string nombreEscenaActual = SceneManager.GetActiveScene().name;
+		if (nombreEscenaActual == "MenuJuegos") nombreDeLaNuevaEscena = "PairGame"+ PlayerPrefs.GetString(nombre+"Dimensiones", "4x2");
 		audioSource.PlayOneShot(sound);
 		Invoke("Escena",0.15f);
 	}

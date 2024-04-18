@@ -10,18 +10,19 @@ public class Botones : MonoBehaviour
     private Button boton;
 	private string texto = null;
     public string nombreDeLaNuevaEscena = "QuizGame";
-	string nombreEscenaActual = null;
 	private GameObject panel = null;
 	private Image panelBrillo;
 	private float value;
+	string nombre;
 	
 	private AudioSource audioSource = null;
 
     private void Start()
     {
+		nombre = PlayerPrefs.GetString("Nombre", "");
 		panel = GameObject.Find("PanelBrillo");
 		panelBrillo = panel.GetComponent<Image>();
-		value = PlayerPrefs.GetFloat("Brillo",0f);
+		value = PlayerPrefs.GetFloat("Brillo",0.9f);
 		float resta = 0.9f - value;
 		panelBrillo.color = new Color(panelBrillo.color.r, panelBrillo.color.g, panelBrillo.color.b, resta);
 		value = PlayerPrefs.GetFloat("Volumen",0.5f);
@@ -31,7 +32,6 @@ public class Botones : MonoBehaviour
 		audioSource = mainCamera.GetComponent<AudioSource>();
         if (boton != null)
         {
-			nombreEscenaActual=SceneManager.GetActiveScene().name;
             boton.onClick.AddListener(OnClickBoton);
         }
     }
@@ -41,23 +41,34 @@ public class Botones : MonoBehaviour
 		Text textoBoton = boton.GetComponentInChildren<Text>();
         texto = textoBoton.text;
 		audioSource.PlayOneShot(sound);
-		if (texto == "Salir"){
-			Invoke("Salir",0.25f);
-		}
-		else if (texto == "Editar"){
+		if (texto == "Editar"){
 			Invoke("Editar",0.25f);
 		}
-		else Invoke("Escena",0.15f);
+		else if (texto == "Volver a jugar"){
+			Invoke("VolverJugar",0.25f);
+		}
+		else Invoke("Escena",0.25f);
     }
-	
-	private void Salir()
-	{
-		Application.Quit();
-	}
 	
 	private void Editar()
 	{
 		SceneManager.LoadScene("MenuEditor");
+	}
+	
+	private void VolverJugar()
+	{
+		if (NAciertos.juego == "Quiz")
+		{
+			SceneManager.LoadScene("QuizGame");
+		}
+		else if (NAciertos.juego == "Simon")
+		{
+			SceneManager.LoadScene("SimonGame");
+		}
+		else if (NAciertos.juego == "Pair")
+		{
+			SceneManager.LoadScene("Pairgame"+PlayerPrefs.GetString(nombre+"Dimensiones", "4x2"));
+		}
 	}
 	
 	private void Escena()
@@ -65,15 +76,16 @@ public class Botones : MonoBehaviour
 		SceneManager.LoadScene(nombreDeLaNuevaEscena);
 	}
 	
-	void OnApplicationQuit()
+	private void LimpiarPreferencias()
     {
         PlayerPrefs.DeleteKey("Animacion");
-		PlayerPrefs.DeleteKey("Nivel");
-		PlayerPrefs.DeleteKey("VariableTiempo");
-		PlayerPrefs.DeleteKey("NPreguntas");
-		PlayerPrefs.DeleteKey("VelocidadSimon");
-		PlayerPrefs.DeleteKey("NSecuencias");
-		PlayerPrefs.Save();
+        PlayerPrefs.DeleteKey("Nivel");
+        PlayerPrefs.Save();
+    }
+	
+    void OnApplicationQuit()
+    {
+        LimpiarPreferencias();
     }
 }
 

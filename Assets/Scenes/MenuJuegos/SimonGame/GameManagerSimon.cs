@@ -21,23 +21,32 @@ public class GameManagerSimon : MonoBehaviour
 	private int nsecuencias;
 	private float pickDelay;
 	public Coroutine rutina;
+	private string nombre;
 	int score=0;
+	public static bool acierto;
+	
+	[SerializeField] private AudioClip sound = null;
+
+    private AudioSource audioSource = null;
 	
 
     void Start()
     {
+		nombre = PlayerPrefs.GetString("Nombre", "");
 		panelcomienzo.SetActive(true);
 		panel.SetActive(false);
 		menu.SetActive(false);
 		PlayerPrefs.SetString("Juego", "Simon");
-		pickDelay = PlayerPrefs.GetFloat("VelocidadSimon", 1f);
-		nsecuencias = PlayerPrefs.GetInt("NSecuencias", 5);
+		pickDelay = PlayerPrefs.GetFloat(nombre+"VelocidadSimon", 1f);
+		nsecuencias = PlayerPrefs.GetInt(nombre+"NSecuencias", 5);
 		cuentaAtras = GameObject.Find("CuentaAtras").GetComponent<Text>();
 		cuentaAtras.gameObject.SetActive(false);
 		botoncomienzo = GameObject.Find("Empezar").GetComponent<Button>();
 		botonmenu = GameObject.Find("BotonPausa").GetComponent<Button>();
 		botonmenu.gameObject.SetActive(false);
 		botoncomienzo.onClick.AddListener(CuentaAtras);
+		Camera mainCamera = Camera.main;
+		audioSource = mainCamera.GetComponent<AudioSource>();
     }
 	
 	public void CuentaAtras()
@@ -52,6 +61,7 @@ public class GameManagerSimon : MonoBehaviour
         int numeroInicial = 3;
         for (int i = numeroInicial; i > 0; i--)
         {
+			audioSource.PlayOneShot(sound);
             cuentaAtras.text = i.ToString();
             yield return new WaitForSeconds(1f);
         }
@@ -62,9 +72,10 @@ public class GameManagerSimon : MonoBehaviour
         StartGame();
     }
 	
-	void StartGame()
+	public void StartGame()
 	{
 		texto.text = "Memoriza";
+		panelinvisible.SetActive(true);
 		texto.color = Color.green;
 		rutina = StartCoroutine("PlayGame");
 	}
@@ -104,41 +115,51 @@ public class GameManagerSimon : MonoBehaviour
         colorOrder.Add(rnd);
     }
 
-    public void PlayersPick(int pick)
+    public IEnumerator PlayersPick(int pick)
     {
         if(pick == colorOrder[pickNumber])
         {
             Debug.Log("Acierto");
-
+			acierto = true;
             pickNumber++;
             if(pickNumber == colorOrder.Count)
             {
 				score++;
 				if (pickNumber == nsecuencias)
 				{
-					PlayerPrefs.SetInt("CorrectAnswersSimon", score);
-					SceneManager.LoadScene(nombreDeLaNuevaEscena);
+					PlayerPrefs.SetInt(nombre+"CorrectAnswersSimon", score);
+					Invoke("CambioEscena",1.5f);
 				}
-				StartGame();
-				panelinvisible.SetActive(true);
+				while (!BotonSimon.condicionCumplida){
+					yield return null;
+				}
+				Invoke("StartGame",1f);
             }
         }
         else
         {
             Debug.Log("Fallo");
+			acierto = false;
 			if (rutina != null)
 			{
 				StopCoroutine(rutina);
 				rutina = null;
 			}
-			PlayerPrefs.SetInt("CorrectAnswersSimon", score);
+			
+			PlayerPrefs.SetInt(nombre+"CorrectAnswersSimon", score);
+			
 			if(pickNumber == nsecuencias)
 			{
-				SceneManager.LoadScene(nombreDeLaNuevaEscena);
+				Invoke("CambioEscena",1.5f);
 			}
-            SceneManager.LoadScene(nombreDeLaNuevaEscena);
+			Invoke("CambioEscena",1.5f);
         }
     }
+	
+	void CambioEscena()
+	{
+		SceneManager.LoadScene(nombreDeLaNuevaEscena);
+	}
 
     void ResetGame()
     {
@@ -149,10 +170,6 @@ public class GameManagerSimon : MonoBehaviour
     {
         PlayerPrefs.DeleteKey("Animacion");
 		PlayerPrefs.DeleteKey("Nivel");
-		PlayerPrefs.DeleteKey("VariableTiempo");
-		PlayerPrefs.DeleteKey("NPreguntas");
-		PlayerPrefs.DeleteKey("VelocidadSimon");
-		PlayerPrefs.DeleteKey("NSecuencias");
 		PlayerPrefs.Save();
     }
 }

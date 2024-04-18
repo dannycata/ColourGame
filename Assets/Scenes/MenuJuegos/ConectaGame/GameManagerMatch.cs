@@ -39,12 +39,13 @@ public class GameManagerMatch : MonoBehaviour
 		Debug.Log("Question:"+question);
 		if(question != null)
 		{
-			matches.AddRange(Cards.GetComponentsInChildren<Match>());
 			foreach (Match match in matches)
 			{
+				Debug.Log(""+match);
 				match.eraseLine();
 			}
 			matches.Clear();
+			matches.AddRange(Cards.GetComponentsInChildren<Match>());
 			Cards.SetActive(false);
 			Invoke("Constructor",0.5f);
 		} 
