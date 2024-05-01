@@ -1,4 +1,5 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +13,10 @@ public class ReadInput : MonoBehaviour
     private Text t_warning;
 	private Text q_warning;
 	private string nombre;
+	private string[] datos;
+	private string[] colores;
+	private int maximo;
+	[SerializeField] Text minmax;
 
     void Start()
     {
@@ -19,11 +24,29 @@ public class ReadInput : MonoBehaviour
         inputFieldTiempo = GameObject.Find("InputFieldTiempo").GetComponent<InputField>();
 		inputFieldPregunta = GameObject.Find("InputFieldPregunta").GetComponent<InputField>();
 		inputFieldTiempo.placeholder.GetComponent<Text>().text = PlayerPrefs.GetFloat(nombre+"VariableTiempo", 5f).ToString();
-		inputFieldPregunta.placeholder.GetComponent<Text>().text = PlayerPrefs.GetInt(nombre+"NPreguntas", 5).ToString();
         t_warning = GameObject.Find("t_warning").GetComponent<Text>();
 		q_warning = GameObject.Find("q_warning").GetComponent<Text>();
         t_warning.enabled = false;
 		q_warning.enabled = false;
+		
+		string datosString = PlayerPrefs.GetString(nombre+"DatosPreguntas","");
+        datos = datosString.Split(',');
+		string datoscolores = PlayerPrefs.GetString(nombre+"Colores", "");
+		colores = datoscolores.Split(',');
+		if (datosString != "" && datoscolores != "") maximo = (colores.Length * 6) + datos.Length;
+		else if (datosString != "" && datoscolores == "") maximo = datos.Length;
+		else maximo = (colores.Length * 6);
+		minmax.text = "Min 1 - Max "+maximo;
+		
+		if (PlayerPrefs.GetInt(nombre+"NPreguntas", 5) <= maximo)
+		{
+			inputFieldPregunta.placeholder.GetComponent<Text>().text = PlayerPrefs.GetInt(nombre+"NPreguntas", 5).ToString();
+		}
+		else
+		{
+			inputFieldPregunta.placeholder.GetComponent<Text>().text = maximo.ToString();
+			PlayerPrefs.SetInt(nombre+"NPreguntas", maximo);
+		}
 
         inputFieldTiempo.onEndEdit.AddListener(Read);
 		inputFieldPregunta.onEndEdit.AddListener(Read2);
@@ -54,7 +77,7 @@ public class ReadInput : MonoBehaviour
 				preguntas = result;
 				q_warning.text = "Error: Fuera de rango";
 				q_warning.enabled = false;
-				if (preguntas >= 1 && preguntas <= BotonesColores.totalVariable) {
+				if (preguntas >= 1 && preguntas <= maximo) {
 					PlayerPrefs.SetInt(nombre+"NPreguntas", preguntas);
 				} else q_warning.enabled = true;
 			}

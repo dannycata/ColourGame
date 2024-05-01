@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ColoresSimon : MonoBehaviour
+public class SelectorColor : MonoBehaviour
 {
     private Button button;
     private Image image;
     private string nombre;
-    [SerializeField] private string variableColor = "VerdeSimon";
-    [SerializeField] private Color defaultColor = Color.green;
+    [SerializeField] private string variableOpcion = "A";
+    [SerializeField] private Color defaultColor = Color.white;
     private string colorElegido;
 
     void Start()
@@ -18,10 +18,16 @@ public class ColoresSimon : MonoBehaviour
         Transform childTransform = transform.Find("Image");
         image = childTransform.GetComponent<Image>();
         nombre = PlayerPrefs.GetString("Nombre", "");
-        Color savedColor = PlayerPrefs.HasKey(nombre + variableColor) ? HexToColor(PlayerPrefs.GetString(nombre + variableColor)) : defaultColor;
+        Color savedColor = PlayerPrefs.HasKey(nombre + variableOpcion) ? HexToColor(PlayerPrefs.GetString(nombre + variableOpcion)) : defaultColor;
         SetColor(savedColor);
         button.onClick.AddListener(OpenColorPicker);
     }
+	
+	public void RefrescaColor()
+	{
+		Color savedColor = PlayerPrefs.HasKey(nombre + variableOpcion) ? HexToColor(PlayerPrefs.GetString(nombre + variableOpcion)) : defaultColor;
+        SetColor(savedColor);
+	}
 
     void OpenColorPicker()
     {
@@ -32,7 +38,7 @@ public class ColoresSimon : MonoBehaviour
     {
         image.color = currentColor;
         colorElegido = ColorToHex(currentColor);
-        PlayerPrefs.SetString(nombre + variableColor, colorElegido);
+		PlayerPrefs.SetString(nombre + variableOpcion, colorElegido);
     }
 
     private string ColorToHex(Color color)

@@ -41,7 +41,7 @@ public class NAciertos : MonoBehaviour
 	int incorrectAnswers = PlayerPrefs.GetInt(nombre+"IncorrectAnswersQUIZ", 0);
 	int n_question = PlayerPrefs.GetInt(nombre+"NPreguntas", 5);
 
-    texto.text = "Numero de aciertos: " + correctAnswers + "   Numero de fallos: " + incorrectAnswers + "   Numero de preguntas: " + n_question;
+    texto.text = "Numero de preguntas: " + n_question + "   Aciertos: " + correctAnswers + "   Fallos: " + incorrectAnswers;
 	
 	datos = PlayerPrefs.GetString(nombre+"DatosQuiz","") + formattedDateTime + "    " + texto.text + ",";
 	PlayerPrefs.SetString(nombre+"DatosQuiz", datos);
@@ -53,8 +53,9 @@ public class NAciertos : MonoBehaviour
 	void Simon()
 	{
 	int correctAnswers = PlayerPrefs.GetInt(nombre+"CorrectAnswersSimon", 0);
+	int secuencias = PlayerPrefs.GetInt(nombre+"NSecuencias", 5);
 
-    texto.text = "Numero de secuencias correctas: " + correctAnswers;
+    texto.text = "Numero de secuencias totales: " + secuencias + "   Correctas: " +correctAnswers;
 	
 	datos = PlayerPrefs.GetString(nombre+"DatosSimon","") + formattedDateTime + "    " + texto.text + ",";
 	PlayerPrefs.SetString(nombre+"DatosSimon", datos);
@@ -66,8 +67,9 @@ public class NAciertos : MonoBehaviour
 	{
 	int correctAnswers = PlayerPrefs.GetInt(nombre+"CorrectAnswersPair", 0);
 	int attempts = PlayerPrefs.GetInt(nombre+"AttemptsPair", 0);
+	string dimensiones = PlayerPrefs.GetString(nombre+"Dimensiones", "4x2");
 
-    texto.text = "Numero de aciertos: " + correctAnswers + "   Numero de intentos: " + attempts ;
+    texto.text = "Dimensiones: " + dimensiones + "   Aciertos: " + correctAnswers + "   Intentos: " + attempts ;
 	
 	datos = PlayerPrefs.GetString(nombre+"DatosPair","") + formattedDateTime + "    " + texto.text + ",";
 	PlayerPrefs.SetString(nombre+"DatosPair", datos);

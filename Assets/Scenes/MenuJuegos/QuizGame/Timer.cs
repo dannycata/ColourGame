@@ -24,6 +24,8 @@ public class Timer : MonoBehaviour
 	
 	[SerializeField] private AudioClip sound = null;
 	private AudioSource audioSource = null;
+	private bool cuentaAtrasEjecutada = false;
+
 	
     public void Starts()
     {
@@ -44,6 +46,18 @@ public class Timer : MonoBehaviour
 		botonmenu = GameObject.Find("BotonPausa").GetComponent<Button>();
 		botonmenu.gameObject.SetActive(false);
 		botoncomienzo.onClick.AddListener(CuentaAtras);
+	}
+	
+	void Movil()
+	{
+		if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
+		{
+			if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && !cuentaAtrasEjecutada)
+			{
+				CuentaAtras();
+				cuentaAtrasEjecutada=true;
+			}
+		}
 	}
 	
 	public void CuentaAtras()
@@ -72,6 +86,7 @@ public class Timer : MonoBehaviour
 
     void Update()
     {
+		Movil();
 		if(actualizar){
 			if (timeLeft > 0){
 				timeLeft -= Time.deltaTime;

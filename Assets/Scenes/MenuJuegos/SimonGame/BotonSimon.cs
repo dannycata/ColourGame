@@ -11,18 +11,12 @@ public class BotonSimon : MonoBehaviour
     [SerializeField] Color defaultColor;
 	Color defaultC;
     [SerializeField] float resetDelay = .25f;
-	private AudioClip sonido = null;
 	[SerializeField] private AudioClip sound = null;
-	[SerializeField] private AudioClip s_incorrect = null;
-	[SerializeField] private AudioClip s_correct = null;
-	[SerializeField] private Sprite i_correct = null;
-	[SerializeField] private Sprite i_incorrect = null;
-	public static bool condicionCumplida=false;
 
     private AudioSource audioSource = null;
 	private Text texto;
     Button button;
-	Image imagen;
+	private Image imagen;
 	bool Press;
 	string nombre;
 	Image higlightColor;
@@ -32,7 +26,6 @@ public class BotonSimon : MonoBehaviour
 		nombre = PlayerPrefs.GetString("Nombre", "");
 		texto = GetComponentInChildren<Text>();
 		ColorBoton();
-		sonido = sound;
 		Camera mainCamera = Camera.main;
 		audioSource = mainCamera.GetComponent<AudioSource>();
         button = GetComponent<Button>();
@@ -66,51 +59,17 @@ public class BotonSimon : MonoBehaviour
 			defaultC = PlayerPrefs.HasKey(nombre + "AzulSimon") ? HexToColor(PlayerPrefs.GetString(nombre + "AzulSimon")) : defaultColor;
 		}
 	}
-	
-	Color GetLighterColor(Color originalColor, float lightnessDelta)
-    {
-        // Convertir el color original a HSV
-        Color.RGBToHSV(originalColor, out float h, out float s, out float v);
-        v = Mathf.Clamp01(v + lightnessDelta);
-        // Convertir de vuelta a RGB
-        Color modifiedColor = Color.HSVToRGB(h, s, v);
-
-        return modifiedColor;
-    }
 
     public void Click()
     {
-        StartCoroutine(ProcesarClick());
-    }
-
-    IEnumerator ProcesarClick()
-    {
-		condicionCumplida = false;
-        StartCoroutine(gm.PlayersPick(ButtonIndex));
-
-        if (GameManagerSimon.acierto)
-		{
-            imagen.sprite = i_correct;
-			sonido = s_correct;
-		}
-        else 
-		{
-            imagen.sprite = i_incorrect;
-			sonido = s_incorrect;
-		}
-
-        imagen.gameObject.SetActive(true);
+        gm.PlayersPick(ButtonIndex, imagen);
 		PressButton();
-        yield return new WaitForSeconds(1f);
-        condicionCumplida = true;
-		imagen.gameObject.SetActive(false);
     }
 
 
     public void PressButton()
     {
-        audioSource.PlayOneShot(sonido);
-		sonido = sound;
+        audioSource.PlayOneShot(sound);
 		higlightColor.gameObject.SetActive(true);
         //button.image.color = highlightC;
         Invoke("ResetButton", resetDelay);

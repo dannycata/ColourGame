@@ -18,6 +18,7 @@ public class CartaScript : MonoBehaviour
 	[SerializeField] private Sprite i_correct = null;
 	[SerializeField] private Sprite i_incorrect = null;
 	[SerializeField] private Sprite interrogation = null;
+	[SerializeField] private GameObject invisible = null;
 	
 	private AudioSource audioSource = null;
 	
@@ -25,6 +26,7 @@ public class CartaScript : MonoBehaviour
 	{
 		Camera mainCamera = Camera.main;
 		audioSource = mainCamera.GetComponent<AudioSource>();
+		invisible.SetActive(false);
 		sonido = sound;
 		boton = GetComponent<Button>();
         boton.onClick.AddListener(click);
@@ -58,6 +60,7 @@ public class CartaScript : MonoBehaviour
 	{
 		simbol.sprite = interrogation;
 		imagen.SetActive(true);
+		invisible.SetActive(false);
 	}
 	
 	public void Acierto()
@@ -74,8 +77,9 @@ public class CartaScript : MonoBehaviour
 		sonido = s_incorrect;
 		simbol.sprite = i_incorrect;
 		simbol.gameObject.SetActive(true);
+		invisible.SetActive(true);
 		audioSource.PlayOneShot(sonido);
 		sonido = sound;
-		Invoke("Close",1f);
+		Invoke("Close",2f);
 	}
 }
