@@ -17,6 +17,7 @@ public class Timer2 : MonoBehaviour
 	private Button botonmenu;
 	private Text cuentaAtras = null;
 	private string nombre;
+	private int invisible=0;
 	private bool cuentaAtrasEjecutada = false;
 	
 	[SerializeField] private AudioClip sound = null;
@@ -30,15 +31,30 @@ public class Timer2 : MonoBehaviour
 		panelcomienzo.SetActive(true);
 		menu.SetActive(false);
 		maxTime = PlayerPrefs.GetFloat(nombre+"VelocidadPair", 40f);
+		invisible = PlayerPrefs.GetInt(nombre+"TiempoInvisibleParejas", 0);
 		actualizar=false;
 		timerBar = GetComponent<Image> ();
-		ResetTimer();
 		cuentaAtras = GameObject.Find("CuentaAtras").GetComponent<Text>();
 		cuentaAtras.gameObject.SetActive(false);
 		botoncomienzo = GameObject.Find("Empezar").GetComponent<Button>();
 		botonmenu = GameObject.Find("BotonPausa").GetComponent<Button>();
 		botonmenu.gameObject.SetActive(false);
+		Color alpha = timerBar.color;
+		alpha.a = 255f;
+		timerBar.color = alpha;
+		if (invisible == 1)
+		{
+			alpha.a = 0f;
+			timerBar.color = alpha;
+		}
+		if (maxTime == 0)
+		{
+			maxTime=1800f;
+			alpha.a = 0f;
+			timerBar.color = alpha;
+		}
 		botoncomienzo.onClick.AddListener(CuentaAtras);
+		ResetTimer();
 	}
 	
 	void Movil()
@@ -49,6 +65,7 @@ public class Timer2 : MonoBehaviour
 			{
 				CuentaAtras();
 				cuentaAtrasEjecutada=true;
+				actualizar = true;
 			}
 		}
 	}
@@ -85,7 +102,7 @@ public class Timer2 : MonoBehaviour
 				timerBar.fillAmount = timeLeft / maxTime;
 			} else {
 				//Time.timeScale = 0;
-				Invoke("End",1f);
+				Invoke("End",0.1f);
 			}
 		}
     }

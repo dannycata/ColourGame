@@ -21,6 +21,8 @@ public class Timer : MonoBehaviour
 	public static bool actualizar = false;
 	private Button boton;
 	private bool respuestaEncontrada = false;
+	int invisible = 0;
+	string nombre = null;
 	
 	[SerializeField] private AudioClip sound = null;
 	private AudioSource audioSource = null;
@@ -34,11 +36,11 @@ public class Timer : MonoBehaviour
 		panelcomienzo.SetActive(true);
 		panel.SetActive(false);
 		menu.SetActive(false);
-		string nombre = PlayerPrefs.GetString("Nombre", "");
+		nombre = PlayerPrefs.GetString("Nombre", "");
+		invisible = PlayerPrefs.GetInt(nombre+"TiempoInvisible", 0);
 		maxTime = PlayerPrefs.GetFloat(nombre+"VariableTiempo", 5f);
 		gameManager = mainCamera.GetComponent<GameManager>();
 		timerBar = GetComponent<Image> ();
-		ResetTimer();
 		actualizar=false;
 		cuentaAtras = GameObject.Find("CuentaAtras").GetComponent<Text>();
 		cuentaAtras.gameObject.SetActive(false);
@@ -46,6 +48,21 @@ public class Timer : MonoBehaviour
 		botonmenu = GameObject.Find("BotonPausa").GetComponent<Button>();
 		botonmenu.gameObject.SetActive(false);
 		botoncomienzo.onClick.AddListener(CuentaAtras);
+		Color alpha = timerBar.color;
+		alpha.a = 255f;
+		timerBar.color = alpha;
+		if (invisible == 1)
+		{
+			alpha.a = 0f;
+			timerBar.color = alpha;
+		}
+		if (maxTime == 0)
+		{
+			maxTime=1800f;
+			alpha.a = 0f;
+			timerBar.color = alpha;
+		}
+		ResetTimer();
 	}
 	
 	void Movil()
@@ -56,6 +73,7 @@ public class Timer : MonoBehaviour
 			{
 				CuentaAtras();
 				cuentaAtrasEjecutada=true;
+				actualizar = true;
 			}
 		}
 	}

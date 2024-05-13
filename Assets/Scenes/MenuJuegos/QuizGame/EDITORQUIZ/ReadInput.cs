@@ -17,6 +17,7 @@ public class ReadInput : MonoBehaviour
 	private string[] colores;
 	private int maximo;
 	[SerializeField] Text minmax;
+	[SerializeField] Toggle toggleButton;
 
     void Start()
     {
@@ -28,6 +29,8 @@ public class ReadInput : MonoBehaviour
 		q_warning = GameObject.Find("q_warning").GetComponent<Text>();
         t_warning.enabled = false;
 		q_warning.enabled = false;
+		toggleButton.isOn = PlayerPrefs.GetInt(nombre+"TiempoInvisible", 0) == 1;
+		toggleButton.onValueChanged.AddListener(delegate { OnToggleChanged(toggleButton); });
 		
 		string datosString = PlayerPrefs.GetString(nombre+"DatosPreguntas","");
         datos = datosString.Split(',');
@@ -35,7 +38,7 @@ public class ReadInput : MonoBehaviour
 		colores = datoscolores.Split(',');
 		if (datosString != "" && datoscolores != "") maximo = (colores.Length * 6) + datos.Length;
 		else if (datosString != "" && datoscolores == "") maximo = datos.Length;
-		else maximo = (colores.Length * 6);
+		else maximo = (colores.Length * 12);
 		minmax.text = "Min 1 - Max "+maximo;
 		
 		if (PlayerPrefs.GetInt(nombre+"NPreguntas", 5) <= maximo)
@@ -87,5 +90,12 @@ public class ReadInput : MonoBehaviour
 				q_warning.enabled = true;
 			}
 		}
+    }
+	
+	public void OnToggleChanged(Toggle changedToggle)
+    {
+		int toggleState=0;
+		if (changedToggle.isOn) toggleState = 1;
+        PlayerPrefs.SetInt(nombre+"TiempoInvisible", toggleState);
     }
 }

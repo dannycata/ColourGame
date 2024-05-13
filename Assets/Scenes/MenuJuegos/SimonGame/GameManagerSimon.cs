@@ -116,7 +116,7 @@ public class GameManagerSimon : MonoBehaviour
         }
 
         PickRandomColor();
-		Invoke("Panel",1f);
+		Invoke("Panel", pickDelay);
     }
 	
 	void Panel()

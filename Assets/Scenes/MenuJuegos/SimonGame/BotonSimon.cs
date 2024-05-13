@@ -10,14 +10,13 @@ public class BotonSimon : MonoBehaviour
     [SerializeField] GameManagerSimon gm;
     [SerializeField] Color defaultColor;
 	Color defaultC;
-    [SerializeField] float resetDelay = .25f;
 	[SerializeField] private AudioClip sound = null;
 
     private AudioSource audioSource = null;
+	private float resetDelay;
 	private Text texto;
     Button button;
 	private Image imagen;
-	bool Press;
 	string nombre;
 	Image higlightColor;
 
@@ -25,6 +24,7 @@ public class BotonSimon : MonoBehaviour
     {
 		nombre = PlayerPrefs.GetString("Nombre", "");
 		texto = GetComponentInChildren<Text>();
+		resetDelay = PlayerPrefs.GetFloat(nombre+"TiempoDestello", 0.25f);
 		ColorBoton();
 		Camera mainCamera = Camera.main;
 		audioSource = mainCamera.GetComponent<AudioSource>();
@@ -63,7 +63,7 @@ public class BotonSimon : MonoBehaviour
     public void Click()
     {
         gm.PlayersPick(ButtonIndex, imagen);
-		PressButton();
+		Press();
     }
 
 
@@ -71,14 +71,19 @@ public class BotonSimon : MonoBehaviour
     {
         audioSource.PlayOneShot(sound);
 		higlightColor.gameObject.SetActive(true);
-        //button.image.color = highlightC;
         Invoke("ResetButton", resetDelay);
+    }
+	
+	public void Press()
+    {
+        audioSource.PlayOneShot(sound);
+		higlightColor.gameObject.SetActive(true);
+        Invoke("ResetButton", 0.25f);
     }
 
     public void ResetButton()
     {
 		higlightColor.gameObject.SetActive(false);
-        //button.image.color = defaultC;
     }
 	
 	private Color HexToColor(string hex)
