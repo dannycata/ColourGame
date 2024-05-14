@@ -15,6 +15,10 @@ public class GameManagerSimon : MonoBehaviour
 	[SerializeField] private GameObject panelcomienzo = null;
 	[SerializeField] private GameObject panel = null;
 	[SerializeField] private GameObject menu = null;
+	[SerializeField] private Sprite i_correct = null;
+	[SerializeField] private Sprite i_incorrect = null;
+	[SerializeField] private AudioClip s_incorrect = null;
+	[SerializeField] private AudioClip s_correct = null;
 	private Button botoncomienzo;
 	private Button botonmenu;
 	private Text cuentaAtras = null;
@@ -22,10 +26,13 @@ public class GameManagerSimon : MonoBehaviour
 	private float pickDelay;
 	public Coroutine rutina;
 	private string nombre;
+	private float resetDelay;
 	int score=0;
 	public static bool acierto;
+	private bool cuentaAtrasEjecutada = false;
 	
 	[SerializeField] private AudioClip sound = null;
+	private AudioClip sonido = null;
 
     private AudioSource audioSource = null;
 	
@@ -38,6 +45,7 @@ public class GameManagerSimon : MonoBehaviour
 		menu.SetActive(false);
 		PlayerPrefs.SetString("Juego", "Simon");
 		pickDelay = PlayerPrefs.GetFloat(nombre+"VelocidadSimon", 1f);
+		resetDelay = PlayerPrefs.GetFloat(nombre+"TiempoDestello", 0.25f);
 		nsecuencias = PlayerPrefs.GetInt(nombre+"NSecuencias", 5);
 		cuentaAtras = GameObject.Find("CuentaAtras").GetComponent<Text>();
 		cuentaAtras.gameObject.SetActive(false);
@@ -52,6 +60,8 @@ public class GameManagerSimon : MonoBehaviour
 	public void CuentaAtras()
 	{
 		botoncomienzo.gameObject.SetActive(false);
+		Button botonvolver = GameObject.Find("VolverMenu").GetComponent<Button>();
+		botonvolver.gameObject.SetActive(false);
 		cuentaAtras.gameObject.SetActive(true);
 		StartCoroutine(CuentaAtrasCoroutine());
 	}
@@ -71,6 +81,18 @@ public class GameManagerSimon : MonoBehaviour
         SetButtonIndex();
         StartGame();
     }
+	
+	void Update()
+	{
+		if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
+		{
+			if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && !cuentaAtrasEjecutada)
+			{
+				CuentaAtras();
+				cuentaAtrasEjecutada=true;
+			}
+		}
+	}
 	
 	public void StartGame()
 	{
@@ -94,11 +116,11 @@ public class GameManagerSimon : MonoBehaviour
         foreach(int colorIndex in colorOrder)
         {
             button[colorIndex].PressButton();
-            yield return new WaitForSeconds(pickDelay);
+            yield return new WaitForSeconds(pickDelay+resetDelay);
         }
 
         PickRandomColor();
-		Invoke("Panel",1f);
+		Invoke("Panel", pickDelay);
     }
 	
 	void Panel()
@@ -115,23 +137,23 @@ public class GameManagerSimon : MonoBehaviour
         colorOrder.Add(rnd);
     }
 
-    public IEnumerator PlayersPick(int pick)
+    public void PlayersPick(int pick, Image imagen)
     {
         if(pick == colorOrder[pickNumber])
         {
             Debug.Log("Acierto");
-			acierto = true;
             pickNumber++;
             if(pickNumber == colorOrder.Count)
             {
 				score++;
+				imagen.sprite = i_correct;
+				sonido = s_correct;
+				audioSource.PlayOneShot(sonido);
+				StartCoroutine(ShowImage(imagen));
 				if (pickNumber == nsecuencias)
 				{
 					PlayerPrefs.SetInt(nombre+"CorrectAnswersSimon", score);
 					Invoke("CambioEscena",1.5f);
-				}
-				while (!BotonSimon.condicionCumplida){
-					yield return null;
 				}
 				Invoke("StartGame",1f);
             }
@@ -139,13 +161,15 @@ public class GameManagerSimon : MonoBehaviour
         else
         {
             Debug.Log("Fallo");
-			acierto = false;
 			if (rutina != null)
 			{
 				StopCoroutine(rutina);
 				rutina = null;
 			}
-			
+			imagen.sprite = i_incorrect;
+			sonido = s_incorrect;
+			audioSource.PlayOneShot(sonido);
+			StartCoroutine(ShowImage(imagen));
 			PlayerPrefs.SetInt(nombre+"CorrectAnswersSimon", score);
 			
 			if(pickNumber == nsecuencias)
@@ -155,6 +179,13 @@ public class GameManagerSimon : MonoBehaviour
 			Invoke("CambioEscena",1.5f);
         }
     }
+	
+	private IEnumerator ShowImage(Image imagen)
+	{
+		imagen.gameObject.SetActive(true);
+		yield return new WaitForSeconds(1f);
+		imagen.gameObject.SetActive(false); 
+	}
 	
 	void CambioEscena()
 	{

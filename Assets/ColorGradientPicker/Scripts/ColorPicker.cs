@@ -45,6 +45,7 @@ public class ColorPicker : MonoBehaviour
     {
         instance = this;
         gameObject.SetActive(false);
+		aComponent.interactable = false;
     }
 
 

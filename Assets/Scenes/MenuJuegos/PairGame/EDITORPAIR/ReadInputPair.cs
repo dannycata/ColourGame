@@ -12,6 +12,8 @@ public class ReadInputPair : MonoBehaviour
     private Text v_warning;
 	private Text r_warning;
 	private string nombre;
+	
+	[SerializeField] Toggle toggleButton;
 
     void Start()
     {
@@ -22,6 +24,8 @@ public class ReadInputPair : MonoBehaviour
         v_warning.enabled = false;
 		r_warning = GameObject.Find("r_warning").GetComponent<Text>();
         r_warning.enabled = true;
+		toggleButton.isOn = PlayerPrefs.GetInt(nombre+"TiempoInvisibleParejas", 0) == 1;
+		toggleButton.onValueChanged.AddListener(delegate { OnToggleChanged(toggleButton); });
 
         inputFieldVelocidad.onEndEdit.AddListener(Read);
     }
@@ -55,6 +59,7 @@ public class ReadInputPair : MonoBehaviour
 				v_warning.enabled = false;
 				r_warning.enabled = true;
 				PlayerPrefs.SetFloat(nombre+"VelocidadPair", velocidad);
+				Debug.Log(velocidad);
 			}
 			else
 			{
@@ -62,5 +67,12 @@ public class ReadInputPair : MonoBehaviour
 				v_warning.enabled = true;
 			}
 		}
+    }
+	
+	public void OnToggleChanged(Toggle changedToggle)
+    {
+		int toggleState=0;
+		if (changedToggle.isOn) toggleState = 1;
+        PlayerPrefs.SetInt(nombre+"TiempoInvisibleParejas", toggleState);
     }
 }

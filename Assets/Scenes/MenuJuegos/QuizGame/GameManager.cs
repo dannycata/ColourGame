@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
 	public int n_question = 0;
 	private bool acierto = false;
 	private QuizDB[] componentesQuizDB = null;
+	[SerializeField] private QuizDB nuevaDB = null;
 	private string nombre;
 	
 	
@@ -47,15 +48,23 @@ public class GameManager : MonoBehaviour
 	
 	private void BaseDatos()
 	{
-		if (PlayerPrefs.GetString(nombre+"Colores", "") == "") PlayerPrefs.SetString(nombre+"Colores", "Rojo,Amarillo,Azul,Verde,Rosa");
+		if (PlayerPrefs.GetString(nombre+"Colores", "") == "" && PlayerPrefs.GetString(nombre + "DatosPreguntas", "") == "") PlayerPrefs.SetString(nombre+"Colores", "Rojo,Amarillo,Azul,Verde,Rosa");
 		string nombresColoresString = PlayerPrefs.GetString(nombre+"Colores", "Rojo,Amarillo,Azul,Verde,Rosa");
         string[] nombresColores = nombresColoresString.Split(',');
-		componentesQuizDB = new QuizDB[nombresColores.Length];
-
-		for (int i = 0; i < nombresColores.Length; i++) {
+		if (nombresColoresString != "")
+		{
+			componentesQuizDB = new QuizDB[nombresColores.Length+1];
+			
+			for (int i = 0; i < nombresColores.Length; i++) {
 			GameObject colorObject = GameObject.Find(nombresColores[i]);
-			componentesQuizDB[i] = colorObject.GetComponent<QuizDB>();
+			componentesQuizDB[i+1] = colorObject.GetComponent<QuizDB>();
+			}
 		}
+		else 
+		{
+			componentesQuizDB = new QuizDB[1];
+		}
+		componentesQuizDB[0] = nuevaDB.GetComponent<QuizDB>();
 	}
 	
 	public void NextQuestion()

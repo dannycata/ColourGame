@@ -10,20 +10,13 @@ public class BotonSimon : MonoBehaviour
     [SerializeField] GameManagerSimon gm;
     [SerializeField] Color defaultColor;
 	Color defaultC;
-    [SerializeField] float resetDelay = .25f;
-	private AudioClip sonido = null;
 	[SerializeField] private AudioClip sound = null;
-	[SerializeField] private AudioClip s_incorrect = null;
-	[SerializeField] private AudioClip s_correct = null;
-	[SerializeField] private Sprite i_correct = null;
-	[SerializeField] private Sprite i_incorrect = null;
-	public static bool condicionCumplida=false;
 
     private AudioSource audioSource = null;
+	private float resetDelay;
 	private Text texto;
     Button button;
-	Image imagen;
-	bool Press;
+	private Image imagen;
 	string nombre;
 	Image higlightColor;
 
@@ -31,8 +24,8 @@ public class BotonSimon : MonoBehaviour
     {
 		nombre = PlayerPrefs.GetString("Nombre", "");
 		texto = GetComponentInChildren<Text>();
+		resetDelay = PlayerPrefs.GetFloat(nombre+"TiempoDestello", 0.25f);
 		ColorBoton();
-		sonido = sound;
 		Camera mainCamera = Camera.main;
 		audioSource = mainCamera.GetComponent<AudioSource>();
         button = GetComponent<Button>();
@@ -66,60 +59,31 @@ public class BotonSimon : MonoBehaviour
 			defaultC = PlayerPrefs.HasKey(nombre + "AzulSimon") ? HexToColor(PlayerPrefs.GetString(nombre + "AzulSimon")) : defaultColor;
 		}
 	}
-	
-	Color GetLighterColor(Color originalColor, float lightnessDelta)
-    {
-        // Convertir el color original a HSV
-        Color.RGBToHSV(originalColor, out float h, out float s, out float v);
-        v = Mathf.Clamp01(v + lightnessDelta);
-        // Convertir de vuelta a RGB
-        Color modifiedColor = Color.HSVToRGB(h, s, v);
-
-        return modifiedColor;
-    }
 
     public void Click()
     {
-        StartCoroutine(ProcesarClick());
-    }
-
-    IEnumerator ProcesarClick()
-    {
-		condicionCumplida = false;
-        StartCoroutine(gm.PlayersPick(ButtonIndex));
-
-        if (GameManagerSimon.acierto)
-		{
-            imagen.sprite = i_correct;
-			sonido = s_correct;
-		}
-        else 
-		{
-            imagen.sprite = i_incorrect;
-			sonido = s_incorrect;
-		}
-
-        imagen.gameObject.SetActive(true);
-		PressButton();
-        yield return new WaitForSeconds(1f);
-        condicionCumplida = true;
-		imagen.gameObject.SetActive(false);
+        gm.PlayersPick(ButtonIndex, imagen);
+		Press();
     }
 
 
     public void PressButton()
     {
-        audioSource.PlayOneShot(sonido);
-		sonido = sound;
+        audioSource.PlayOneShot(sound);
 		higlightColor.gameObject.SetActive(true);
-        //button.image.color = highlightC;
         Invoke("ResetButton", resetDelay);
+    }
+	
+	public void Press()
+    {
+        audioSource.PlayOneShot(sound);
+		higlightColor.gameObject.SetActive(true);
+        Invoke("ResetButton", 0.25f);
     }
 
     public void ResetButton()
     {
 		higlightColor.gameObject.SetActive(false);
-        //button.image.color = defaultC;
     }
 	
 	private Color HexToColor(string hex)

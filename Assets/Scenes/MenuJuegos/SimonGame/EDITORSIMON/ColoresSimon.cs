@@ -18,9 +18,6 @@ public class ColoresSimon : MonoBehaviour
         Transform childTransform = transform.Find("Image");
         image = childTransform.GetComponent<Image>();
         nombre = PlayerPrefs.GetString("Nombre", "");
-        Debug.Log("Color guardado: " + PlayerPrefs.GetString(nombre + variableColor));
-        Debug.Log("Nombre: " + nombre);
-        Debug.Log("Nombre de color: " + variableColor);
         Color savedColor = PlayerPrefs.HasKey(nombre + variableColor) ? HexToColor(PlayerPrefs.GetString(nombre + variableColor)) : defaultColor;
         SetColor(savedColor);
         button.onClick.AddListener(OpenColorPicker);
@@ -35,7 +32,6 @@ public class ColoresSimon : MonoBehaviour
     {
         image.color = currentColor;
         colorElegido = ColorToHex(currentColor);
-        Debug.Log("Color: " + colorElegido);
         PlayerPrefs.SetString(nombre + variableColor, colorElegido);
     }
 

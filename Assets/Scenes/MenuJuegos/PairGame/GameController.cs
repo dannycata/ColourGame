@@ -143,11 +143,12 @@ public class GameController : MonoBehaviour
 		else
 		{
 			secondOpen = startObject;
-			StartCoroutine(CheckGuessed());
+			CheckGuessed();
+			//Invoke("CheckGuessed",0f);
 		}
 	}
 	
-	private IEnumerator CheckGuessed()
+	private void CheckGuessed()
 	{
 		if(firstOpen.ID == secondOpen.ID)
 		{
@@ -159,8 +160,6 @@ public class GameController : MonoBehaviour
 		}
 		else
 		{
-			yield return new WaitForSeconds(0.5f);
-			
 			firstOpen.Fallo();
 			secondOpen.Fallo();
 		}

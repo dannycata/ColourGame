@@ -59,7 +59,6 @@ public class Nombre : MonoBehaviour
 	private void LimpiarPreferencias()
     {
         PlayerPrefs.DeleteKey("Animacion");
-        PlayerPrefs.DeleteKey("Nivel");
         PlayerPrefs.Save();
     }
 	

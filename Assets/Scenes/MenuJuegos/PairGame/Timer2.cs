@@ -17,6 +17,8 @@ public class Timer2 : MonoBehaviour
 	private Button botonmenu;
 	private Text cuentaAtras = null;
 	private string nombre;
+	private int invisible=0;
+	private bool cuentaAtrasEjecutada = false;
 	
 	[SerializeField] private AudioClip sound = null;
 	private AudioSource audioSource = null;
@@ -29,21 +31,51 @@ public class Timer2 : MonoBehaviour
 		panelcomienzo.SetActive(true);
 		menu.SetActive(false);
 		maxTime = PlayerPrefs.GetFloat(nombre+"VelocidadPair", 40f);
+		invisible = PlayerPrefs.GetInt(nombre+"TiempoInvisibleParejas", 0);
 		actualizar=false;
 		timerBar = GetComponent<Image> ();
-		ResetTimer();
 		cuentaAtras = GameObject.Find("CuentaAtras").GetComponent<Text>();
 		cuentaAtras.gameObject.SetActive(false);
 		botoncomienzo = GameObject.Find("Empezar").GetComponent<Button>();
 		botonmenu = GameObject.Find("BotonPausa").GetComponent<Button>();
 		botonmenu.gameObject.SetActive(false);
+		Color alpha = timerBar.color;
+		alpha.a = 255f;
+		timerBar.color = alpha;
+		if (invisible == 1)
+		{
+			alpha.a = 0f;
+			timerBar.color = alpha;
+		}
+		if (maxTime == 0)
+		{
+			maxTime=1800f;
+			alpha.a = 0f;
+			timerBar.color = alpha;
+		}
 		botoncomienzo.onClick.AddListener(CuentaAtras);
+		ResetTimer();
+	}
+	
+	void Movil()
+	{
+		if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
+		{
+			if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && !cuentaAtrasEjecutada)
+			{
+				CuentaAtras();
+				cuentaAtrasEjecutada=true;
+				actualizar = true;
+			}
+		}
 	}
 	
 	public void CuentaAtras()
 	{
 		audioSource.PlayOneShot(sound);
 		botoncomienzo.gameObject.SetActive(false);
+		Button botonvolver = GameObject.Find("VolverMenu").GetComponent<Button>();
+		botonvolver.gameObject.SetActive(false);
 		cuentaAtras.gameObject.SetActive(true);
 		StartCoroutine(CuentaAtrasCoroutine());
 	}
@@ -65,13 +97,14 @@ public class Timer2 : MonoBehaviour
 
     void Update()
     {
+		Movil();
 		if(actualizar){
 			if (timeLeft > 0){
 				timeLeft -= Time.deltaTime;
 				timerBar.fillAmount = timeLeft / maxTime;
 			} else {
 				//Time.timeScale = 0;
-				Invoke("End",1f);
+				Invoke("End",0.1f);
 			}
 		}
     }
