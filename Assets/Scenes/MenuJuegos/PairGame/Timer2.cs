@@ -74,6 +74,8 @@ public class Timer2 : MonoBehaviour
 	{
 		audioSource.PlayOneShot(sound);
 		botoncomienzo.gameObject.SetActive(false);
+		Button botonvolver = GameObject.Find("VolverMenu").GetComponent<Button>();
+		botonvolver.gameObject.SetActive(false);
 		cuentaAtras.gameObject.SetActive(true);
 		StartCoroutine(CuentaAtrasCoroutine());
 	}

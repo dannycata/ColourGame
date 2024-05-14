@@ -26,6 +26,7 @@ public class GameManagerSimon : MonoBehaviour
 	private float pickDelay;
 	public Coroutine rutina;
 	private string nombre;
+	private float resetDelay;
 	int score=0;
 	public static bool acierto;
 	private bool cuentaAtrasEjecutada = false;
@@ -44,6 +45,7 @@ public class GameManagerSimon : MonoBehaviour
 		menu.SetActive(false);
 		PlayerPrefs.SetString("Juego", "Simon");
 		pickDelay = PlayerPrefs.GetFloat(nombre+"VelocidadSimon", 1f);
+		resetDelay = PlayerPrefs.GetFloat(nombre+"TiempoDestello", 0.25f);
 		nsecuencias = PlayerPrefs.GetInt(nombre+"NSecuencias", 5);
 		cuentaAtras = GameObject.Find("CuentaAtras").GetComponent<Text>();
 		cuentaAtras.gameObject.SetActive(false);
@@ -58,6 +60,8 @@ public class GameManagerSimon : MonoBehaviour
 	public void CuentaAtras()
 	{
 		botoncomienzo.gameObject.SetActive(false);
+		Button botonvolver = GameObject.Find("VolverMenu").GetComponent<Button>();
+		botonvolver.gameObject.SetActive(false);
 		cuentaAtras.gameObject.SetActive(true);
 		StartCoroutine(CuentaAtrasCoroutine());
 	}
@@ -112,7 +116,7 @@ public class GameManagerSimon : MonoBehaviour
         foreach(int colorIndex in colorOrder)
         {
             button[colorIndex].PressButton();
-            yield return new WaitForSeconds(pickDelay);
+            yield return new WaitForSeconds(pickDelay+resetDelay);
         }
 
         PickRandomColor();

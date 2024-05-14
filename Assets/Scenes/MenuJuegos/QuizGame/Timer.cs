@@ -81,6 +81,8 @@ public class Timer : MonoBehaviour
 	public void CuentaAtras()
 	{
 		audioSource.PlayOneShot(sound);
+		Button botonvolver = GameObject.Find("VolverMenu").GetComponent<Button>();
+		botonvolver.gameObject.SetActive(false);
 		botoncomienzo.gameObject.SetActive(false);
 		cuentaAtras.gameObject.SetActive(true);
 		StartCoroutine(CuentaAtrasCoroutine());
