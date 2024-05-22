@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using UnityEngine.EventSystems;
 
 public class Timer2 : MonoBehaviour
 {
@@ -18,7 +19,6 @@ public class Timer2 : MonoBehaviour
 	private Text cuentaAtras = null;
 	private string nombre;
 	private int invisible=0;
-	private bool cuentaAtrasEjecutada = false;
 	
 	[SerializeField] private AudioClip sound = null;
 	private AudioSource audioSource = null;
@@ -57,18 +57,13 @@ public class Timer2 : MonoBehaviour
 		ResetTimer();
 	}
 	
-	void Movil()
+	public void OnPanelClicked()
 	{
 		if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
 		{
-			if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && !cuentaAtrasEjecutada)
-			{
-				CuentaAtras();
-				cuentaAtrasEjecutada=true;
-				actualizar = true;
-			}
-		}
-	}
+			CuentaAtras();
+        }
+    }
 	
 	public void CuentaAtras()
 	{
@@ -97,7 +92,6 @@ public class Timer2 : MonoBehaviour
 
     void Update()
     {
-		Movil();
 		if(actualizar){
 			if (timeLeft > 0){
 				timeLeft -= Time.deltaTime;

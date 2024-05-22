@@ -29,7 +29,6 @@ public class GameManagerSimon : MonoBehaviour
 	private float resetDelay;
 	int score=0;
 	public static bool acierto;
-	private bool cuentaAtrasEjecutada = false;
 	
 	[SerializeField] private AudioClip sound = null;
 	private AudioClip sonido = null;
@@ -82,17 +81,13 @@ public class GameManagerSimon : MonoBehaviour
         StartGame();
     }
 	
-	void Update()
+	public void OnPanelClicked()
 	{
 		if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
 		{
-			if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && !cuentaAtrasEjecutada)
-			{
-				CuentaAtras();
-				cuentaAtrasEjecutada=true;
-			}
-		}
-	}
+			CuentaAtras();
+        }
+    }
 	
 	public void StartGame()
 	{
@@ -120,7 +115,7 @@ public class GameManagerSimon : MonoBehaviour
         }
 
         PickRandomColor();
-		Invoke("Panel", pickDelay);
+		Invoke("Panel", resetDelay+0.5f);
     }
 	
 	void Panel()
