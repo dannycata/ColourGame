@@ -8,6 +8,7 @@ public class Scroll : MonoBehaviour
 {
 	[SerializeField] private AudioClip sound = null;
     [SerializeField] private GameObject estadistica;
+	[SerializeField] private GameObject paneleliminartodo= null;
 	[SerializeField] private Button borrar;
     public Transform parentTransform;
 	private string nombre;
@@ -25,6 +26,7 @@ public class Scroll : MonoBehaviour
 		nombreDeLaEscenaActual = SceneManager.GetActiveScene().name;
 		nombreModificado = nombreDeLaEscenaActual.Replace("Estadisticas", "");
 		estadistica.SetActive(false);
+		paneleliminartodo.SetActive(false);
 		panel = GameObject.Find("PanelBrillo");
 		panelBrillo = panel.GetComponent<Image>();
 		value = PlayerPrefs.GetFloat("Brillo",0.9f);
@@ -68,8 +70,32 @@ public class Scroll : MonoBehaviour
 	private void OnClickBoton()
     {
 		audioSource.PlayOneShot(sound);
-		Invoke("Borrar",0.25f);
-    }
+		paneleliminartodo.SetActive(true);
+		Button[] botones = paneleliminartodo.GetComponentsInChildren<Button>();
+        foreach (Button boton in botones)
+        {
+            if (boton.name == "Si")
+            {
+				boton.onClick.AddListener(OnClickSi);
+            }
+            else if (boton.name == "No")
+            {
+                boton.onClick.AddListener(OnClickNo);
+            }
+        }
+	}
+	
+	void OnClickSi()
+	{
+		audioSource.PlayOneShot(sound);
+        Invoke("Borrar",0.25f);
+	}
+	
+	void OnClickNo()
+	{
+		audioSource.PlayOneShot(sound);
+		paneleliminartodo.SetActive(false);
+	}
 	
 	private void Borrar()
 	{

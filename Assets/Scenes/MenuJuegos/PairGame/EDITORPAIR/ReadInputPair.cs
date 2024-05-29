@@ -2,9 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ReadInputPair : MonoBehaviour
 {
+	[SerializeField] private AudioClip sound = null;
+	[SerializeField] private GameObject paneleliminartodo= null;
+	[SerializeField] private GameObject panelresetear= null;
+	[SerializeField] private Button borrarcancelar;
+	[SerializeField] private Button resetear;
     private float velocidad;
 	private int secuencias;
     private InputField inputFieldVelocidad;
@@ -14,9 +20,19 @@ public class ReadInputPair : MonoBehaviour
 	private string nombre;
 	
 	[SerializeField] Toggle toggleButton;
+	
+	private AudioSource audioSource = null;
+	
+	public static float velocidadpair;
+	public static int tinvisible;
+	public static string pdimensiones;
 
     void Start()
     {
+		paneleliminartodo.SetActive(false);
+		panelresetear.SetActive(false);
+		Camera mainCamera = Camera.main;
+		audioSource = mainCamera.GetComponent<AudioSource>();
 		nombre = PlayerPrefs.GetString("Nombre", "");
         inputFieldVelocidad = GameObject.Find("InputFieldVelocidad").GetComponent<InputField>();
 		inputFieldVelocidad.placeholder.GetComponent<Text>().text = PlayerPrefs.GetFloat(nombre+"VelocidadPair", 40f).ToString();
@@ -28,6 +44,9 @@ public class ReadInputPair : MonoBehaviour
 		toggleButton.onValueChanged.AddListener(delegate { OnToggleChanged(toggleButton); });
 
         inputFieldVelocidad.onEndEdit.AddListener(Read);
+		borrarcancelar.onClick.AddListener(OnClickCancelar);
+		resetear.onClick.AddListener(OnClickResetear);
+		GuardarPrefabs();
     }
 	
 	void Update()
@@ -75,4 +94,90 @@ public class ReadInputPair : MonoBehaviour
 		if (changedToggle.isOn) toggleState = 1;
         PlayerPrefs.SetInt(nombre+"TiempoInvisibleParejas", toggleState);
     }
+	
+	public void GuardarPrefabs()
+	{
+		velocidadpair = PlayerPrefs.GetFloat(nombre+"VelocidadPair", 40f);
+		tinvisible = PlayerPrefs.GetInt(nombre+"TiempoInvisibleParejas", 0);
+		pdimensiones = PlayerPrefs.GetString(nombre+"Dimensiones", "4x2");
+	}
+	
+	public void AsignarPrefabs(float velocpair, int tinv, string dim)
+	{
+		PlayerPrefs.SetFloat(nombre+"VelocidadPair", velocpair);
+		PlayerPrefs.SetInt(nombre+"TiempoInvisibleParejas", tinv);
+		PlayerPrefs.SetString(nombre+"Dimensiones", dim);
+	}
+	
+	private void OnClickCancelar()
+    {
+		audioSource.PlayOneShot(sound);
+		paneleliminartodo.SetActive(true);
+		Button[] botones = paneleliminartodo.GetComponentsInChildren<Button>();
+        foreach (Button boton in botones)
+        {
+            if (boton.name == "Si")
+            {
+				boton.onClick.AddListener(OnClickSi);
+            }
+            else if (boton.name == "No")
+            {
+                boton.onClick.AddListener(OnClickNo);
+            }
+        }
+	}
+	
+	void OnClickSi()
+	{
+		audioSource.PlayOneShot(sound);
+        Invoke("Borrar",0.25f);
+	}
+	
+	void OnClickNo()
+	{
+		audioSource.PlayOneShot(sound);
+		paneleliminartodo.SetActive(false);
+	}
+	
+	private void Borrar()
+	{
+		AsignarPrefabs(velocidadpair,tinvisible,pdimensiones);
+		SceneManager.LoadScene("MenuEditor");
+	}
+	
+	private void OnClickResetear()
+    {
+		audioSource.PlayOneShot(sound);
+		panelresetear.SetActive(true);
+		Button[] botones = panelresetear.GetComponentsInChildren<Button>();
+        foreach (Button boton in botones)
+        {
+            if (boton.name == "Si")
+            {
+				boton.onClick.AddListener(OnClickSiReset);
+            }
+            else if (boton.name == "No")
+            {
+                boton.onClick.AddListener(OnClickNoReset);
+            }
+        }
+	}
+	
+	void OnClickSiReset()
+	{
+		audioSource.PlayOneShot(sound);
+        Invoke("Reset",0.25f);
+	}
+	
+	void OnClickNoReset()
+	{
+		audioSource.PlayOneShot(sound);
+		panelresetear.SetActive(false);
+	}
+	
+	private void Reset()
+	{
+		AsignarPrefabs(40f,0,"4x2");
+		SceneManager.LoadScene("MenuEditor");
+	}
 }
