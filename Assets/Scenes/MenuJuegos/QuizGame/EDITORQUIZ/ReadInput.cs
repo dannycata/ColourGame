@@ -3,11 +3,17 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ReadInput : MonoBehaviour
 {
+	[SerializeField] private AudioClip sound = null;
+	[SerializeField] private GameObject paneleliminartodo= null;
+	[SerializeField] private GameObject panelresetear= null;
     private float tiempo;
 	private int preguntas;
+	[SerializeField] private Button borrarcancelar;
+	[SerializeField] private Button resetear;
     private InputField inputFieldTiempo;
 	private InputField inputFieldPregunta;
     private Text t_warning;
@@ -18,9 +24,22 @@ public class ReadInput : MonoBehaviour
 	private int maximo;
 	[SerializeField] Text minmax;
 	[SerializeField] Toggle toggleButton;
+	
+	private AudioSource audioSource = null;
+	
+	public static float variabletiempo;
+	public static int tiempoinvisible;
+	public static string datospreguntas;
+	public static string prefabcolores;
+	public static int npreguntas;
+	public static string datospreguntascorrecta;
 
     void Start()
     {
+		paneleliminartodo.SetActive(false);
+		panelresetear.SetActive(false);
+		Camera mainCamera = Camera.main;
+		audioSource = mainCamera.GetComponent<AudioSource>();
 		nombre = PlayerPrefs.GetString("Nombre", "");
         inputFieldTiempo = GameObject.Find("InputFieldTiempo").GetComponent<InputField>();
 		inputFieldPregunta = GameObject.Find("InputFieldPregunta").GetComponent<InputField>();
@@ -34,7 +53,7 @@ public class ReadInput : MonoBehaviour
 		
 		string datosString = PlayerPrefs.GetString(nombre+"DatosPreguntas","");
         datos = datosString.Split(',');
-		string datoscolores = PlayerPrefs.GetString(nombre+"Colores", "");
+		string datoscolores = PlayerPrefs.GetString(nombre+"Colores", "Rojo,Amarillo,Azul,Verde,Rosa");
 		colores = datoscolores.Split(',');
 		if (datosString != "" && datoscolores != "") maximo = (colores.Length * 6) + datos.Length;
 		else if (datosString != "" && datoscolores == "") maximo = datos.Length;
@@ -53,6 +72,9 @@ public class ReadInput : MonoBehaviour
 
         inputFieldTiempo.onEndEdit.AddListener(Read);
 		inputFieldPregunta.onEndEdit.AddListener(Read2);
+		borrarcancelar.onClick.AddListener(OnClickCancelar);
+		resetear.onClick.AddListener(OnClickResetear);
+		GuardarPrefabs();
     }
 
     void Read(string inputValue)
@@ -98,4 +120,101 @@ public class ReadInput : MonoBehaviour
 		if (changedToggle.isOn) toggleState = 1;
         PlayerPrefs.SetInt(nombre+"TiempoInvisible", toggleState);
     }
+	
+	public void GuardarPrefabs()
+	{
+		if (PlayerPrefs.GetInt("Actualizar", 1) == 1)
+		{
+			PlayerPrefs.SetInt("Actualizar", 0);
+			variabletiempo = PlayerPrefs.GetFloat(nombre+"VariableTiempo", 5f);
+			tiempoinvisible = PlayerPrefs.GetInt(nombre+"TiempoInvisible", 0);
+			datospreguntas = PlayerPrefs.GetString(nombre+"DatosPreguntas","");
+			prefabcolores = PlayerPrefs.GetString(nombre+"Colores", "Rojo,Amarillo,Azul,Verde,Rosa");
+			npreguntas = PlayerPrefs.GetInt(nombre+"NPreguntas", 5);
+			datospreguntascorrecta = PlayerPrefs.GetString(nombre+"DatosPreguntasCorrecta","");
+		}
+	}
+	
+	public void AsignarPrefabs(float vtiempo, int tinv, string dpreg, string cols, int npreg, string dpregc)
+	{
+		PlayerPrefs.SetInt("Actualizar", 1);
+		PlayerPrefs.SetFloat(nombre+"VariableTiempo", vtiempo);
+		PlayerPrefs.SetInt(nombre+"TiempoInvisible", tinv);
+		PlayerPrefs.SetString(nombre+"DatosPreguntas", dpreg);
+		PlayerPrefs.SetString(nombre+"Colores", cols);
+		PlayerPrefs.SetInt(nombre+"NPreguntas", npreg);
+		PlayerPrefs.SetString(nombre+"DatosPreguntasCorrecta", dpregc);
+	}
+	
+	private void OnClickCancelar()
+    {
+		audioSource.PlayOneShot(sound);
+		paneleliminartodo.SetActive(true);
+		Button[] botones = paneleliminartodo.GetComponentsInChildren<Button>();
+        foreach (Button boton in botones)
+        {
+            if (boton.name == "Si")
+            {
+				boton.onClick.AddListener(OnClickSi);
+            }
+            else if (boton.name == "No")
+            {
+                boton.onClick.AddListener(OnClickNo);
+            }
+        }
+	}
+	
+	void OnClickSi()
+	{
+		audioSource.PlayOneShot(sound);
+        Invoke("Borrar",0.25f);
+	}
+	
+	void OnClickNo()
+	{
+		audioSource.PlayOneShot(sound);
+		paneleliminartodo.SetActive(false);
+	}
+	
+	private void Borrar()
+	{
+		AsignarPrefabs(variabletiempo,tiempoinvisible,datospreguntas,prefabcolores,npreguntas,datospreguntascorrecta);
+		SceneManager.LoadScene("MenuEditor");
+	}
+	
+	private void OnClickResetear()
+    {
+		audioSource.PlayOneShot(sound);
+		panelresetear.SetActive(true);
+		Button[] botones = panelresetear.GetComponentsInChildren<Button>();
+        foreach (Button boton in botones)
+        {
+            if (boton.name == "Si")
+            {
+				boton.onClick.AddListener(OnClickSiReset);
+            }
+            else if (boton.name == "No")
+            {
+                boton.onClick.AddListener(OnClickNoReset);
+            }
+        }
+	}
+	
+	void OnClickSiReset()
+	{
+		audioSource.PlayOneShot(sound);
+        Invoke("Reset",0.25f);
+	}
+	
+	void OnClickNoReset()
+	{
+		audioSource.PlayOneShot(sound);
+		panelresetear.SetActive(false);
+	}
+	
+	private void Reset()
+	{
+		AsignarPrefabs(5f,0,"","Rojo,Amarillo,Azul,Verde,Rosa",5,"");
+		SceneManager.LoadScene("MenuEditor");
+	}
 }

@@ -34,6 +34,11 @@ public class Botones : MonoBehaviour
         {
             boton.onClick.AddListener(OnClickBoton);
         }
+		
+		if (SceneManager.GetActiveScene().name == "MenuEditor")
+        {
+            PlayerPrefs.SetInt("Actualizar", 1);
+        }
     }
 
     private void OnClickBoton()

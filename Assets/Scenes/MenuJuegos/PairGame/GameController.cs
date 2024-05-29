@@ -22,6 +22,8 @@ public class GameController : MonoBehaviour
 	private int score = 0;
 	private int attempts = 0;
 	
+	public Sprite[] images;
+	
 	[SerializeField] private Text scoreText;
     [SerializeField] private Text attemptsText;
     
@@ -78,6 +80,7 @@ public class GameController : MonoBehaviour
 
 	void Start()
 	{
+		Sprite[] shuffledImages = ShuffleArray(images);
 		nombre = PlayerPrefs.GetString("Nombre", "");
 		PlayerPrefs.SetString("Juego","Pair");
 		string dimensiones = PlayerPrefs.GetString(nombre+"Dimensiones", "4x2");
@@ -124,9 +127,24 @@ public class GameController : MonoBehaviour
                 
                 int index = (j * columns) + i;
                 int id = locations[index];
-                carta.CambiaSprite(id, colors[id]);
+                carta.CambiaSprite(id, colors[id], shuffledImages[id]);
+				Debug.Log(""+id);
             }
         }
+    }
+	
+	//Barajar imagenes
+	Sprite[] ShuffleArray(Sprite[] array)
+    {
+        Sprite[] shuffledArray = (Sprite[])array.Clone();
+        for (int i = shuffledArray.Length - 1; i > 0; i--)
+        {
+            int j = Random.Range(0, i + 1);
+            Sprite temp = shuffledArray[i];
+            shuffledArray[i] = shuffledArray[j];
+            shuffledArray[j] = temp;
+        }
+        return shuffledArray;
     }
 	
 	public bool canOpen

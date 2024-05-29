@@ -26,7 +26,6 @@ public class Timer : MonoBehaviour
 	
 	[SerializeField] private AudioClip sound = null;
 	private AudioSource audioSource = null;
-	private bool cuentaAtrasEjecutada = false;
 
 	
     public void Starts()
@@ -65,18 +64,13 @@ public class Timer : MonoBehaviour
 		ResetTimer();
 	}
 	
-	void Movil()
+	public void OnPanelClicked()
 	{
 		if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
 		{
-			if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && !cuentaAtrasEjecutada)
-			{
-				CuentaAtras();
-				cuentaAtrasEjecutada=true;
-				actualizar = true;
-			}
-		}
-	}
+			CuentaAtras();
+        }
+    }
 	
 	public void CuentaAtras()
 	{
@@ -106,7 +100,6 @@ public class Timer : MonoBehaviour
 
     void Update()
     {
-		Movil();
 		if(actualizar){
 			if (timeLeft > 0){
 				timeLeft -= Time.deltaTime;

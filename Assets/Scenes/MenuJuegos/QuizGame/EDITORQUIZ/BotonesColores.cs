@@ -7,6 +7,8 @@ using System;
 public class BotonesColores : MonoBehaviour
 {
 	[SerializeField] private AudioClip sound = null;
+	[SerializeField] private Sprite correct = null;
+	[SerializeField] private Sprite incorrect = null;
 	string hexColor = "#A4FC92";
     private Color colorSeleccionado;
     private Color colorNormal= Color.white;
@@ -14,6 +16,7 @@ public class BotonesColores : MonoBehaviour
     private string texto;
 	public static int totalVariable;
 	private string nombre;
+	private Image imagenTic;
 	
 	private AudioSource audioSource = null;
 
@@ -24,11 +27,12 @@ public class BotonesColores : MonoBehaviour
 		Camera mainCamera = Camera.main;
 		audioSource = mainCamera.GetComponent<AudioSource>();
         boton = GetComponent<Button>();
-		// minmax = GameObject.Find("minmax").GetComponent<Text>();
         Text textoBoton = boton.GetComponentInChildren<Text>();
         texto = textoBoton.text;
 		if (PlayerPrefs.GetString(nombre+"Colores", "") == "" && PlayerPrefs.GetString(nombre + "DatosPreguntas", "") == "") PlayerPrefs.SetString(nombre+"Colores", "Rojo,Amarillo,Azul,Verde,Rosa");
         boton.onClick.AddListener(click);
+		Transform Tic = transform.Find("Tic");
+		imagenTic = Tic.GetComponent<Image>();
         ActualizarColores();
     }
 
@@ -44,6 +48,7 @@ public class BotonesColores : MonoBehaviour
 			if (texto == nombreColor)
 			{
 				boton.image.color = colorSeleccionado;
+				imagenTic.sprite = correct;
 				colorEncontrado = true;
 				break;
 			}
@@ -51,6 +56,7 @@ public class BotonesColores : MonoBehaviour
 		if (!colorEncontrado)
 		{
 			boton.image.color = colorNormal;
+			imagenTic.sprite = incorrect;
 		}
 	}
 	
@@ -60,11 +66,13 @@ public class BotonesColores : MonoBehaviour
 		if (boton.image.color == colorSeleccionado)
 		{
 			boton.image.color = colorNormal;
+			imagenTic.sprite = incorrect;
 			BorrarColor(texto);
 		}
 		else
 		{
 			boton.image.color = colorSeleccionado;
+			imagenTic.sprite = correct;
 			GuardarColor(texto);
 		}
 	}

@@ -13,6 +13,7 @@ public class ScrollColores : MonoBehaviour
 	[SerializeField] private Button borrar;
 	[SerializeField] private Button crear;
 	[SerializeField] private GameObject panelcrear = null;
+	[SerializeField] private GameObject paneleliminartodo= null;
 	[SerializeField] private GameObject panelmodificar= null;
     public Transform parentTransform;
 	private string nombre;
@@ -37,11 +38,16 @@ public class ScrollColores : MonoBehaviour
 
 	private AudioSource audioSource = null;
 	
+	Dictionary<int, Button> botoneseliminar = new Dictionary<int, Button>();
+	Dictionary<int, Button> botonesmodificar = new Dictionary<int, Button>();
+	Dictionary<int, Transform> padres = new Dictionary<int, Transform>();
+	
     void Start()
     {
 		objetosConSelector = FindObjectsOfType<SelectorColor>();
 		nombreDeLaEscenaActual = SceneManager.GetActiveScene().name;
 		panelcrear.SetActive(false);
+		paneleliminartodo.SetActive(false);
 		errorMessage.SetActive(false);
 		panelmodificar.SetActive(false);
 		Botonescolores.SetActive(false);
@@ -77,10 +83,6 @@ public class ScrollColores : MonoBehaviour
 		borrarcrear.onClick.AddListener(OnClickSalir);
 		guardarcrear.onClick.AddListener(OnClickGuardar);
 		
-		Dictionary<int, Button> botoneseliminar = new Dictionary<int, Button>();
-		Dictionary<int, Button> botonesmodificar = new Dictionary<int, Button>();
-		Dictionary<int, Transform> padres = new Dictionary<int, Transform>();
-		
 		if (!string.IsNullOrEmpty(datos[0]))
 		{
 			noestadistica.SetActive(false);
@@ -95,6 +97,10 @@ public class ScrollColores : MonoBehaviour
 			
 			Button modificarPrincipal = estadistica.transform.Find("modificar").GetComponent<Button>();
 			modificarPrincipal.onClick.AddListener(() => modificarpadre(padrePrincipal,0));
+			
+			botoneseliminar.Add(0, eliminarPrincipal);
+			botonesmodificar.Add(0, modificarPrincipal);
+			padres.Add(0, padrePrincipal);
 			
 			Asignacolores(datos[0].Split('/'), estadistica);
 			for (int i = 1; i < datos.Length; i++)
@@ -192,7 +198,8 @@ public class ScrollColores : MonoBehaviour
 		PlayerPrefs.SetString(nombre + "DatosPreguntas", datosString);
 		PlayerPrefs.SetString(nombre + "DatosPreguntasCorrecta", datosIntCorrect);
 		PlayerPrefs.Save();
-		SceneManager.LoadScene("ListaPreguntas");
+		//SceneManager.LoadScene("ListaPreguntas");
+		SceneManager.LoadScene("EditorQuizColores");
 	}
 	
 	private void eliminarpadre(Transform padre, int indice)
@@ -212,15 +219,9 @@ public class ScrollColores : MonoBehaviour
 		PlayerPrefs.SetString(nombre + "DatosPreguntas", datosString);
 		PlayerPrefs.SetString(nombre + "DatosPreguntasCorrecta", datosIntCorrect);
 		PlayerPrefs.Save(); 
-		SceneManager.LoadScene("ListaPreguntas");
+		//SceneManager.LoadScene("ListaPreguntas");
+		SceneManager.LoadScene("EditorQuizColores");
 	}
-
-	
-	private void OnClickBorrar()
-    {
-		audioSource.PlayOneShot(sound);
-		Invoke("Borrar",0.25f);
-    }
 	
 	private void OnClickCrear()
     {
@@ -277,21 +278,10 @@ public class ScrollColores : MonoBehaviour
 			}
 			PlayerPrefs.SetString(nombre+"DatosPreguntas", dato);
 			PlayerPrefs.SetString(nombre+"DatosPreguntasCorrecta", correcta);
-			SceneManager.LoadScene("ListaPreguntas");
+			//SceneManager.LoadScene("ListaPreguntas");
+			SceneManager.LoadScene("EditorQuizColores");
 		}
     }
-	
-	private void Borrar()
-	{
-		PlayerPrefs.DeleteKey(nombre+"DatosPreguntas");
-		PlayerPrefs.DeleteKey(nombre+"DatosPreguntasCorrecta");
-		for (int i=0 ; i<6 ; i++)
-		{
-			char variableOpcion = (char)('A' + i);
-			PlayerPrefs.DeleteKey(nombre + variableOpcion);
-		}
-		SceneManager.LoadScene("ListaPreguntas");
-	}
 	
 	private void OnToggleValueChanged(Toggle changedToggle)
     {
@@ -325,5 +315,48 @@ public class ScrollColores : MonoBehaviour
                 break;
             }
         }
+	}
+	
+	private void OnClickBorrar()
+    {
+		audioSource.PlayOneShot(sound);
+		paneleliminartodo.SetActive(true);
+		Button[] botones = paneleliminartodo.GetComponentsInChildren<Button>();
+        foreach (Button boton in botones)
+        {
+            if (boton.name == "Si")
+            {
+				boton.onClick.AddListener(OnClickSi);
+            }
+            else if (boton.name == "No")
+            {
+                boton.onClick.AddListener(OnClickNo);
+            }
+        }
+	}
+	
+	void OnClickSi()
+	{
+		audioSource.PlayOneShot(sound);
+        Invoke("Borrar",0.25f);
+	}
+	
+	void OnClickNo()
+	{
+		audioSource.PlayOneShot(sound);
+		paneleliminartodo.SetActive(false);
+	}
+	
+	private void Borrar()
+	{
+		PlayerPrefs.DeleteKey(nombre+"DatosPreguntas");
+		PlayerPrefs.DeleteKey(nombre+"DatosPreguntasCorrecta");
+		for (int i=0 ; i<6 ; i++)
+		{
+			char variableOpcion = (char)('A' + i);
+			PlayerPrefs.DeleteKey(nombre + variableOpcion);
+		}
+		//SceneManager.LoadScene("ListaPreguntas");
+		SceneManager.LoadScene("EditorQuizColores");
 	}
 }

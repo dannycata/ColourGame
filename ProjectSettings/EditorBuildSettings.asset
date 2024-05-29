@@ -6,8 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MenuPrincipal/MenuPrincipal 1.unity
+    path: Assets/Scenes/MenuPrincipal/MenuInicio.unity
     guid: d3f72db95664f47488fa19ba7a061870
+  - enabled: 1
+    path: Assets/Scenes/MenuPrincipal/MenuSesion.unity
+    guid: 5cf28cb5ee38ace4ab7519c308983e13
+  - enabled: 1
+    path: Assets/Scenes/MenuPrincipal/ListaNombres.unity
+    guid: bd2481154e208924995112b66bf6f11e
   - enabled: 1
     path: Assets/Scenes/MenuPrincipal/MenuPrincipal.unity
     guid: cc71053295675ec4cbf34f31955353ea
@@ -22,10 +28,7 @@ EditorBuildSettings:
     guid: d7ad931d01aa82442b6873e3ce2e17f0
   - enabled: 1
     path: Assets/Scenes/MenuJuegos/QuizGame/EDITORQUIZ/EditorQuizColores.unity
-    guid: 26279899301bb6241a24306a1987ee69
-  - enabled: 1
-    path: Assets/Scenes/MenuJuegos/QuizGame/EDITORQUIZ/ListaPreguntas.unity
-    guid: 6a57fb54cb6b21d47a0dd14c40bc75b2
+    guid: 7e448fa509633194d8c07240b998b802
   - enabled: 1
     path: Assets/Scenes/MenuJuegos/QuizGame/EDITORQUIZ/EstadisticasQuiz.unity
     guid: 4da44df7fa13318439728140eecfbfff
@@ -59,4 +62,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FinJuego/FinJuego.unity
     guid: 985c4429ef62ccf479d61284e0cb41bf
+  - enabled: 1
+    path: Assets/Scenes/MenuPrincipal/Creditos.unity
+    guid: 64b5193704e6c28428444be50c80db5b
   m_configObjects: {}
