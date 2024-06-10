@@ -5,15 +5,20 @@ using UnityEngine.UI;
 
 public class SelectorColor : MonoBehaviour
 {
+	[SerializeField] private AudioClip sound = null;
     private Button button;
     private Image image;
     private string nombre;
     [SerializeField] private string variableOpcion = "A";
     [SerializeField] private Color defaultColor = Color.white;
     private string colorElegido;
+	
+	private AudioSource audioSource = null;
 
     void Start()
     {
+		Camera mainCamera = Camera.main;
+		audioSource = mainCamera.GetComponent<AudioSource>();
         button = GetComponent<Button>();
         Transform childTransform = transform.Find("Image");
         image = childTransform.GetComponent<Image>();
@@ -31,6 +36,7 @@ public class SelectorColor : MonoBehaviour
 
     void OpenColorPicker()
     {
+		audioSource.PlayOneShot(sound);
         ColorPicker.Create(image.color, "Elige un color!", SetColor, ColorFinished, true);
     }
 

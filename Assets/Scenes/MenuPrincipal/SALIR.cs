@@ -23,14 +23,14 @@ public class SALIR : MonoBehaviour
 		BotonNo = panel.transform.Find("Panel/No").GetComponent<Button>();
 		BotonAspa = GetComponent<Button>();
         BotonAspa.onClick.AddListener(Click);
+		BotonSi.onClick.AddListener(Si);
+		BotonNo.onClick.AddListener(No);
     }
 	
 	private void Click()
     {
 		panel.SetActive(true);
 		audioSource.PlayOneShot(sound);
-		BotonSi.onClick.AddListener(Si);
-		BotonNo.onClick.AddListener(No);
 	}
 	
 	private void Si()

@@ -26,6 +26,10 @@ public class BotonPausa : MonoBehaviour
 		menuopciones.SetActive(false);
 		botonmenu = GetComponent<Button>();
         botonmenu.onClick.AddListener(Menu);
+		volver.onClick.AddListener(Volver);
+		continuar.onClick.AddListener(Continuar);
+		opciones.onClick.AddListener(Opciones);
+		salir.onClick.AddListener(Salir);
     }
 
     void Menu()
@@ -35,9 +39,6 @@ public class BotonPausa : MonoBehaviour
         menu.SetActive(true);
 		Timer.actualizar = false;
 		Timer2.actualizar = false;
-		continuar.onClick.AddListener(Continuar);
-		opciones.onClick.AddListener(Opciones);
-		salir.onClick.AddListener(Salir);
     }
 	
 	void Continuar()
@@ -53,7 +54,6 @@ public class BotonPausa : MonoBehaviour
     {
 		audioSource.PlayOneShot(sound);
 		menuopciones.SetActive(true);
-		volver.onClick.AddListener(Volver);
     }
 	
 	void Volver()

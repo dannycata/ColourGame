@@ -41,7 +41,7 @@ public class NAciertos : MonoBehaviour
 	int incorrectAnswers = PlayerPrefs.GetInt(nombre+"IncorrectAnswersQUIZ", 0);
 	int n_question = PlayerPrefs.GetInt(nombre+"NPreguntas", 5);
 
-    texto.text = "Numero de preguntas: " + n_question + "   Aciertos: " + correctAnswers + "   Fallos: " + incorrectAnswers;
+    texto.text = "Número de preguntas: " + n_question + "   Aciertos: " + correctAnswers + "   Fallos: " + incorrectAnswers;
 	
 	datos = PlayerPrefs.GetString(nombre+"DatosQuiz","") + formattedDateTime + "    " + texto.text + ",";
 	PlayerPrefs.SetString(nombre+"DatosQuiz", datos);
@@ -55,7 +55,7 @@ public class NAciertos : MonoBehaviour
 	int correctAnswers = PlayerPrefs.GetInt(nombre+"CorrectAnswersSimon", 0);
 	int secuencias = PlayerPrefs.GetInt(nombre+"NSecuencias", 5);
 
-    texto.text = "Numero de secuencias totales: " + secuencias + "   Correctas: " +correctAnswers;
+    texto.text = "Número de secuencias correctas: " +correctAnswers+ "   Número total: " +secuencias;
 	
 	datos = PlayerPrefs.GetString(nombre+"DatosSimon","") + formattedDateTime + "    " + texto.text + ",";
 	PlayerPrefs.SetString(nombre+"DatosSimon", datos);

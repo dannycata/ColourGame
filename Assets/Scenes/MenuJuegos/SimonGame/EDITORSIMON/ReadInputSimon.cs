@@ -161,10 +161,12 @@ public class ReadInputSimon : MonoBehaviour
         {
             if (boton.name == "Si")
             {
+				boton.onClick.RemoveListener(OnClickSi);
 				boton.onClick.AddListener(OnClickSi);
             }
             else if (boton.name == "No")
             {
+				boton.onClick.RemoveListener(OnClickNo);
                 boton.onClick.AddListener(OnClickNo);
             }
         }
@@ -197,10 +199,12 @@ public class ReadInputSimon : MonoBehaviour
         {
             if (boton.name == "Si")
             {
+				boton.onClick.RemoveListener(OnClickSiReset);
 				boton.onClick.AddListener(OnClickSiReset);
             }
             else if (boton.name == "No")
             {
+				boton.onClick.RemoveListener(OnClickNoReset);
                 boton.onClick.AddListener(OnClickNoReset);
             }
         }

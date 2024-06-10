@@ -40,7 +40,7 @@ public class ColorPicker : MonoBehaviour
     public Slider aComponent;
     public InputField hexaComponent;
     public RawImage colorComponent;
-
+	
     private void Awake()
     {
         instance = this;
