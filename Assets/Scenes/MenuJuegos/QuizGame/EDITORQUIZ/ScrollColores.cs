@@ -152,10 +152,13 @@ public class ScrollColores : MonoBehaviour
 	
 	private void modificarpadre(Transform padre, int indice)
 	{
+		audioSource.PlayOneShot(sound);
 		panelmodificar.SetActive(true);
 		Botonescolores.SetActive(true);
 		
+		borrarmodificar.onClick.RemoveAllListeners();
 		borrarmodificar.onClick.AddListener(OnClickSalirMod);
+		guardarmodificar.onClick.RemoveAllListeners();
 		guardarmodificar.onClick.AddListener(() => OnClickGuardarMod(padre,indice));
 		string[] colores = datos[indice].Split('/');
 		
@@ -174,12 +177,14 @@ public class ScrollColores : MonoBehaviour
 	
 	private void OnClickSalirMod()
 	{
+		audioSource.PlayOneShot(sound);
 		panelmodificar.SetActive(false);
 		Botonescolores.SetActive(false);
 	}
 	
 	private void OnClickGuardarMod(Transform padre, int indice)
 	{
+		audioSource.PlayOneShot(sound);
 		colorespregunta=null;
 		panelmodificar.SetActive(false);
 		Botonescolores.SetActive(false);
@@ -204,6 +209,7 @@ public class ScrollColores : MonoBehaviour
 	
 	private void eliminarpadre(Transform padre, int indice)
 	{
+		audioSource.PlayOneShot(sound);
 		Destroy(padre.gameObject);
 
 		for (int i = indice; i < datos.Length - 1; i++)
@@ -243,12 +249,14 @@ public class ScrollColores : MonoBehaviour
 	
 	private void OnClickSalir()
     {
+		audioSource.PlayOneShot(sound);
 		panelcrear.SetActive(false);
 		Botonescolores.SetActive(false);
     }
 	
 	private void OnClickGuardar()
     {
+		audioSource.PlayOneShot(sound);
 		if (activeIndex == -1)
 		{
 			errorMessage.SetActive(true);
@@ -285,6 +293,7 @@ public class ScrollColores : MonoBehaviour
 	
 	private void OnToggleValueChanged(Toggle changedToggle)
     {
+		audioSource.PlayOneShot(sound);
         if (changedToggle.isOn && changedToggle != lastActiveToggle)
         {
             if (lastActiveToggle != null)
@@ -326,10 +335,12 @@ public class ScrollColores : MonoBehaviour
         {
             if (boton.name == "Si")
             {
+				boton.onClick.RemoveListener(OnClickSi);
 				boton.onClick.AddListener(OnClickSi);
             }
             else if (boton.name == "No")
             {
+				boton.onClick.RemoveListener(OnClickNo);
                 boton.onClick.AddListener(OnClickNo);
             }
         }

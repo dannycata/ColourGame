@@ -494,6 +494,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c2cb5a31be16e149a96ad0bbf52488b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sound: {fileID: 0}
   variableOpcion: F
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &156625029
@@ -2194,6 +2195,7 @@ MonoBehaviour:
   borrar: {fileID: 224387618}
   crear: {fileID: 1665054901}
   panelcrear: {fileID: 1496525256}
+  paneleliminartodo: {fileID: 0}
   panelmodificar: {fileID: 1831919587}
   parentTransform: {fileID: 1460947056}
   noestadistica: {fileID: 953646340}
@@ -3576,6 +3578,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c2cb5a31be16e149a96ad0bbf52488b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sound: {fileID: 0}
   variableOpcion: C
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &759992874
@@ -3954,6 +3957,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c2cb5a31be16e149a96ad0bbf52488b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sound: {fileID: 0}
   variableOpcion: D
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &861573310
@@ -5164,6 +5168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c2cb5a31be16e149a96ad0bbf52488b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sound: {fileID: 0}
   variableOpcion: E
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &1033269947
@@ -6285,6 +6290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c2cb5a31be16e149a96ad0bbf52488b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sound: {fileID: 0}
   variableOpcion: A
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &1392303882
@@ -8043,6 +8049,7 @@ MonoBehaviour:
   borrar: {fileID: 0}
   crear: {fileID: 0}
   panelcrear: {fileID: 0}
+  paneleliminartodo: {fileID: 0}
   panelmodificar: {fileID: 0}
   parentTransform: {fileID: 0}
   noestadistica: {fileID: 0}
@@ -8585,6 +8592,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c2cb5a31be16e149a96ad0bbf52488b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sound: {fileID: 0}
   variableOpcion: B
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &1935041106

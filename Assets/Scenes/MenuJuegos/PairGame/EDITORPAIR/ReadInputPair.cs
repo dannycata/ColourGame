@@ -38,19 +38,8 @@ public class ReadInputPair : MonoBehaviour
 		inputFieldVelocidad.placeholder.GetComponent<Text>().text = PlayerPrefs.GetFloat(nombre+"VelocidadPair", 40f).ToString();
         v_warning = GameObject.Find("v_warning").GetComponent<Text>();
         v_warning.enabled = false;
+		
 		r_warning = GameObject.Find("r_warning").GetComponent<Text>();
-        r_warning.enabled = true;
-		toggleButton.isOn = PlayerPrefs.GetInt(nombre+"TiempoInvisibleParejas", 0) == 1;
-		toggleButton.onValueChanged.AddListener(delegate { OnToggleChanged(toggleButton); });
-
-        inputFieldVelocidad.onEndEdit.AddListener(Read);
-		borrarcancelar.onClick.AddListener(OnClickCancelar);
-		resetear.onClick.AddListener(OnClickResetear);
-		GuardarPrefabs();
-    }
-	
-	void Update()
-	{
 		string dimensiones = PlayerPrefs.GetString(nombre+"Dimensiones", "4x2");
 		if (dimensiones == "4x2")
 		{
@@ -67,7 +56,16 @@ public class ReadInputPair : MonoBehaviour
 			r_warning.text = "Recomendado 90 o mas";
 			
 		}
-	}
+        r_warning.enabled = true;
+		
+		toggleButton.isOn = PlayerPrefs.GetInt(nombre+"TiempoInvisibleParejas", 0) == 1;
+		toggleButton.onValueChanged.AddListener(delegate { OnToggleChanged(toggleButton); });
+
+        inputFieldVelocidad.onEndEdit.AddListener(Read);
+		borrarcancelar.onClick.AddListener(OnClickCancelar);
+		resetear.onClick.AddListener(OnClickResetear);
+		GuardarPrefabs();
+    }
 
     void Read(string inputValue)
     {
@@ -118,10 +116,12 @@ public class ReadInputPair : MonoBehaviour
         {
             if (boton.name == "Si")
             {
+				boton.onClick.RemoveListener(OnClickSi);
 				boton.onClick.AddListener(OnClickSi);
             }
             else if (boton.name == "No")
             {
+				boton.onClick.RemoveListener(OnClickNo);
                 boton.onClick.AddListener(OnClickNo);
             }
         }
@@ -154,10 +154,12 @@ public class ReadInputPair : MonoBehaviour
         {
             if (boton.name == "Si")
             {
+				boton.onClick.RemoveListener(OnClickSiReset);
 				boton.onClick.AddListener(OnClickSiReset);
             }
             else if (boton.name == "No")
             {
+				boton.onClick.RemoveListener(OnClickNoReset);
                 boton.onClick.AddListener(OnClickNoReset);
             }
         }

@@ -76,10 +76,12 @@ public class Scroll : MonoBehaviour
         {
             if (boton.name == "Si")
             {
+				boton.onClick.RemoveListener(OnClickSi);
 				boton.onClick.AddListener(OnClickSi);
             }
             else if (boton.name == "No")
             {
+				boton.onClick.RemoveListener(OnClickNo);
                 boton.onClick.AddListener(OnClickNo);
             }
         }

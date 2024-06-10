@@ -13,11 +13,15 @@ public class BotonesDimension : MonoBehaviour
     private Button ultimoBotonSeleccionado = null;
     private AudioSource audioSource = null;
 	private string nombre;
+	private InputField inputFieldVelocidad;
+	private Text r_warning;
 
     private void Start()
     {
 		nombre = PlayerPrefs.GetString("Nombre", "");
         colorSeleccionado = ColorUtility.TryParseHtmlString(hexColor, out Color color) ? color : Color.white;
+		inputFieldVelocidad = GameObject.Find("InputFieldVelocidad").GetComponent<InputField>();
+		r_warning = GameObject.Find("r_warning").GetComponent<Text>();
         Camera mainCamera = Camera.main;
         audioSource = mainCamera.GetComponent<AudioSource>();
         ActualizarColores();
@@ -56,6 +60,27 @@ public class BotonesDimension : MonoBehaviour
         audioSource.PlayOneShot(sound);
         botonActual.image.color = colorSeleccionado;
         PlayerPrefs.SetString(nombre+"Dimensiones", textoBoton);
+		if (textoBoton == "4x2")
+		{
+			r_warning.text = "Recomendado 40 o mas";
+			PlayerPrefs.SetFloat(nombre+"VelocidadPair", 40f);
+			inputFieldVelocidad.placeholder.GetComponent<Text>().text = "40";
+			
+		}
+		else if (textoBoton == "6x2")
+		{
+			r_warning.text = "Recomendado 60 o mas";
+			PlayerPrefs.SetFloat(nombre+"VelocidadPair", 60f);
+			inputFieldVelocidad.placeholder.GetComponent<Text>().text = "60";
+			
+		}
+		else if (textoBoton == "6x3")
+		{
+			r_warning.text = "Recomendado 90 o mas";
+			PlayerPrefs.SetFloat(nombre+"VelocidadPair", 90f);
+			inputFieldVelocidad.placeholder.GetComponent<Text>().text = "90";
+			
+		}
 
         if (ultimoBotonSeleccionado != null && ultimoBotonSeleccionado != botonActual)
         {

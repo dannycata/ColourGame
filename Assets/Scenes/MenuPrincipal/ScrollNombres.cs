@@ -118,6 +118,11 @@ public class ScrollNombres : MonoBehaviour
 	{
 		audioSource.PlayOneShot(sound);
 		PlayerPrefs.SetString("Nombre", datos[indice]);
+		Invoke("CargarMenuPrincipal", 0.25f);
+	}
+
+	private void CargarMenuPrincipal()
+	{
 		SceneManager.LoadScene("MenuPrincipal");
 	}
 	
@@ -126,7 +131,9 @@ public class ScrollNombres : MonoBehaviour
 		audioSource.PlayOneShot(sound);
 		panelmodificar.SetActive(true);
 		
+		borrarmodificar.onClick.RemoveAllListeners();
 		borrarmodificar.onClick.AddListener(OnClickSalirMod);
+		guardarmodificar.onClick.RemoveAllListeners();
 		guardarmodificar.onClick.AddListener(() => OnClickGuardarMod(padre,indice));
 		InputNombre.placeholder.GetComponent<Text>().text = datos[indice].ToString();
 	}
@@ -236,10 +243,12 @@ public class ScrollNombres : MonoBehaviour
         {
             if (boton.name == "Si")
             {
+				boton.onClick.RemoveListener(OnClickSi);
 				boton.onClick.AddListener(OnClickSi);
             }
             else if (boton.name == "No")
             {
+				boton.onClick.RemoveListener(OnClickNo);
                 boton.onClick.AddListener(OnClickNo);
             }
         }
