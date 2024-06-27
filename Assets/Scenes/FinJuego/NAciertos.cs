@@ -69,7 +69,7 @@ public class NAciertos : MonoBehaviour
 	int attempts = PlayerPrefs.GetInt(nombre+"AttemptsPair", 0);
 	string dimensiones = PlayerPrefs.GetString(nombre+"Dimensiones", "4x2");
 
-    texto.text = "Dimensiones: " + dimensiones + "   Aciertos: " + correctAnswers + "   Intentos: " + attempts ;
+    texto.text = "Dimensiones: " + dimensiones + "   Puntos: " + correctAnswers + "   Intentos: " + attempts ;
 	
 	datos = PlayerPrefs.GetString(nombre+"DatosPair","") + formattedDateTime + "    " + texto.text + ",";
 	PlayerPrefs.SetString(nombre+"DatosPair", datos);

@@ -89,7 +89,7 @@ public class ScrollColores : MonoBehaviour
 			estadistica.SetActive(true);
 			
 			Text texto = estadistica.GetComponentInChildren<Text>();
-			texto.text = "Pregunta 1";
+			texto.text = "Paleta 1";
 			
 			Button eliminarPrincipal = estadistica.transform.Find("eliminar").GetComponent<Button>();
 			Transform padrePrincipal = eliminarPrincipal.transform.parent;
@@ -109,7 +109,7 @@ public class ScrollColores : MonoBehaviour
 				GameObject nuevaEstadistica = Instantiate(estadistica, parentTransform);
 				
 				Text nuevotexto = nuevaEstadistica.GetComponentInChildren<Text>();
-				nuevotexto.text = "Pregunta " + (indice+1);
+				nuevotexto.text = "Paleta " + (indice+1);
 				
 				Button eliminar = nuevaEstadistica.transform.Find("eliminar").GetComponent<Button>();
 				Transform padre = eliminar.transform.parent;
