@@ -1,11 +1,11 @@
 # ColourGames
 ColourGames es una aplicación de juegos de colores diseñada para estimular las capacidades cognitivas de los pacientes con Alzheimer y otras demencias. Esta aplicación tiene 3 juegos diferentes:
 
-- 1º: Juego Quiz: Este juego consiste en adivinar el color. Se pregunta por un color, hay 6 opciones diferentes y solo una de ellas es la correcta.
+- Juego Quiz: Este juego consiste en adivinar el color. Se pregunta por un color, hay 6 opciones diferentes y solo una de ellas es la correcta.
 
-2º: Simon Dice: Típico juego en el que hay que seguir una secuencia de colores.
+- Simon Dice: Típico juego en el que hay que seguir una secuencia de colores.
 
-3º: Juego de Parejas: Este juego reparte una serie de cartas a las que hay que darles la vuelta y encontrar su pareja correspondiente.
+- Juego de Parejas: Este juego reparte una serie de cartas a las que hay que darles la vuelta y encontrar su pareja correspondiente.
 
 Estos 3 juegos tienen su propio apartado para poder editarlos. En él se pueden elegir distintas opciones como el tiempo, los colores, el numero de preguntas, el numero de secuencias...
 
