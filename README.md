@@ -20,7 +20,7 @@ Estos 3 juegos tienen su propio apartado para poder editarlos. En él se pueden 
 ![image](https://github.com/dannycata/ColourGames/assets/101550048/bb6ef515-62dc-4de4-9529-bbf5e6909b18)
 
 
-### **App para Android**
+### *App para Android*
 3º Hacemos clic en ColourGame.apk
 
 ![image](https://github.com/dannycata/ColourGames/assets/101550048/35266f35-ff0c-4ff2-aed3-393190d6fc49)
@@ -32,8 +32,9 @@ Estos 3 juegos tienen su propio apartado para poder editarlos. En él se pueden 
 
 5º Cuando finalice la descarga simplemente nos quedaría instalar la aplicación
 
-
-### **App para PC**
+´´´
+### *App para PC*
+´´´
 3º Hacemos clic en ColourGamePC.rar
 
 ![image](https://github.com/dannycata/ColourGames/assets/101550048/cfdaeb9d-7125-489b-af36-f6113ed43281)
