@@ -17,8 +17,14 @@ Para poder descargar la aplicación simplemente hay que seguir estos pasos:
 ![image](https://github.com/dannycata/ColourGames/assets/101550048/bb6ef515-62dc-4de4-9529-bbf5e6909b18)
 
 
-3.1º En el caso de Android hacemos click en ColourGame.apk y tras esto damos al botón de descargar
+3.1º En el caso de Android hacemos clic en ColourGame.apk
 ![image](https://github.com/dannycata/ColourGames/assets/101550048/35266f35-ff0c-4ff2-aed3-393190d6fc49)
+
+3.2º En el caso de Pc hacemos clic en ColourGamePC.rar
+![image](https://github.com/dannycata/ColourGames/assets/101550048/cfdaeb9d-7125-489b-af36-f6113ed43281)
+
+
+4º Una vez abierto el archivo damos clic en el botón de descargar
 ![Captura de pantalla 2024-06-28 123010](https://github.com/dannycata/ColourGames/assets/101550048/002b56c0-1275-4cf5-81ec-0625fc5b65cb)
 
 
