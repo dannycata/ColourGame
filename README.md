@@ -11,7 +11,7 @@ Estos 3 juegos tienen su propio apartado para poder editarlos. En él se pueden 
 
 ## Pasos para descargar la aplicación
 
-1º Ir a la carpeta de Descarga Aplicación
+-1 Ir a la carpeta de Descarga Aplicación
 
 ![image](https://github.com/dannycata/ColourGames/assets/101550048/d2c91f0f-1ce6-44c1-ba05-a8abaaf93031)
 
