@@ -12,9 +12,11 @@ Estos 3 juegos tienen su propio apartado para poder editarlos. En él se pueden 
 Para poder descargar la aplicación simplemente hay que seguir estos pasos:
 
 1º Ir a la carpeta de Descarga Aplicación
+
 ![image](https://github.com/dannycata/ColourGames/assets/101550048/d2c91f0f-1ce6-44c1-ba05-a8abaaf93031)
 
 2º Una vez estamos dentro de la carpeta anterior seleccionamos si queremos la app de android o la de pc.
+
 ![image](https://github.com/dannycata/ColourGames/assets/101550048/bb6ef515-62dc-4de4-9529-bbf5e6909b18)
 
 
