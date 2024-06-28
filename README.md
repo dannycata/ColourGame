@@ -24,7 +24,7 @@ Estos 3 juegos tienen su propio apartado para poder editarlos. En él se pueden 
 
 ![image](https://github.com/dannycata/ColourGames/assets/101550048/35266f35-ff0c-4ff2-aed3-393190d6fc49)
 
-3.2º En el caso de Pc hacemos clic en ColourGamePC.rar
+3.2º En el caso de PC hacemos clic en ColourGamePC.rar
 
 ![image](https://github.com/dannycata/ColourGames/assets/101550048/cfdaeb9d-7125-489b-af36-f6113ed43281)
 
@@ -32,5 +32,8 @@ Estos 3 juegos tienen su propio apartado para poder editarlos. En él se pueden 
 4º Una vez abierto el archivo damos clic en el botón de descargar
 ![Captura de pantalla 2024-06-28 123010](https://github.com/dannycata/ColourGames/assets/101550048/002b56c0-1275-4cf5-81ec-0625fc5b65cb)
 
+5.1º En el caso de Android, simplemente nos quedaría instalar
+
+5.2º En el caso de PC, tenemos que descomprimir el archivo y ejecutar el archivo ColourGame.exe (la aplicación)
 
 
