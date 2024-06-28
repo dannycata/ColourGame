@@ -21,7 +21,7 @@ Estos 3 juegos tienen su propio apartado para poder editarlos. En él se pueden 
 
 
 
-### *App para Android*
+### *|App para Android|*
 
 3º Hacemos clic en ColourGame.apk
 
@@ -36,7 +36,7 @@ Estos 3 juegos tienen su propio apartado para poder editarlos. En él se pueden 
 
 
 
-### *App para PC*
+### *|App para PC|*
 
 3º Hacemos clic en ColourGamePC.rar
 
