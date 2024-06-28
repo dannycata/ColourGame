@@ -9,7 +9,7 @@ ColourGames es una aplicación de juegos de colores diseñada para estimular las
 
 Estos 3 juegos tienen su propio apartado para poder editarlos. En él se pueden elegir distintas opciones como el tiempo, los colores, el numero de preguntas, el numero de secuencias...
 
-Para poder descargar la aplicación simplemente hay que seguir estos pasos:
+# Pasos para descargar la aplicación
 
 1º Ir a la carpeta de Descarga Aplicación
 
