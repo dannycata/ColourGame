@@ -9,4 +9,17 @@ ColourGames es una aplicación de juegos de colores diseñada para estimular las
 
 Estos 3 juegos tienen su propio apartado para poder editarlos. En él se pueden elegir distintas opciones como el tiempo, los colores, el numero de preguntas, el numero de secuencias...
 
-Para poder descargar la aplicación simplemente hay que ir a la carpeta de Descarga Aplicación. Una vez estamos ahí seleccionamos si queremos la app de android o la de pc. Y una vez dentro descargamos su contenido.
+Para poder descargar la aplicación simplemente hay que seguir estos pasos:
+1º Ir a la carpeta de Descarga Aplicación
+![image](https://github.com/dannycata/ColourGames/assets/101550048/d2c91f0f-1ce6-44c1-ba05-a8abaaf93031)
+
+2º Una vez estamos dentro de la carpeta anterior seleccionamos si queremos la app de android o la de pc.
+![image](https://github.com/dannycata/ColourGames/assets/101550048/bb6ef515-62dc-4de4-9529-bbf5e6909b18)
+
+
+3.1º En el caso de Android hacemos click en ColourGame.apk y tras esto damos al botón de descargar
+![image](https://github.com/dannycata/ColourGames/assets/101550048/35266f35-ff0c-4ff2-aed3-393190d6fc49)
+![Captura de pantalla 2024-06-28 123010](https://github.com/dannycata/ColourGames/assets/101550048/002b56c0-1275-4cf5-81ec-0625fc5b65cb)
+
+
+
