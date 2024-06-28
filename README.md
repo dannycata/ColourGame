@@ -23,6 +23,7 @@ Estos 3 juegos tienen su propio apartado para poder editarlos. En él se pueden 
 
 ### *|App para Android|*  
 
+
 3. Hacemos clic en ColourGame.apk
 
   ![image](https://github.com/dannycata/ColourGames/assets/101550048/35266f35-ff0c-4ff2-aed3-393190d6fc49)
